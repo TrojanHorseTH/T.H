@@ -1,10 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* PARTICLES */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+.nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+}
+
+.brand img {
+  width: 36px;
+}
+
+nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #aaa;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 60px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+}
+
+.hero p {
+  color: #ccc;
+  margin: 20px 0 30px;
+}
+
+.hero button {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 14px 34px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hero-logo img {
+  width: 260px;
+  opacity: 0.9;
+}
+
+/* SHOP */
 .shop {
+  position: relative;
+  z-index: 1;
   padding: 100px 60px;
   background: #050505;
-  text-align: center;
 }
 
 .shop h2 {
+  text-align: center;
   font-size: 2.4rem;
   margin-bottom: 60px;
 }
@@ -19,7 +112,6 @@
   background: #0b0b0b;
   border: 1px solid #1a1a1a;
   padding: 30px;
-  text-align: left;
   transition: 0.3s;
 }
 
@@ -30,13 +122,11 @@
 
 .shop-item h3 {
   font-size: 1.4rem;
-  margin-bottom: 10px;
 }
 
 .shop-item p {
   color: #aaa;
-  font-size: 0.95rem;
-  margin-bottom: 20px;
+  margin: 15px 0;
 }
 
 .price {
@@ -49,12 +139,23 @@
   background: transparent;
   border: 1px solid #fff;
   color: #fff;
-  padding: 10px 22px;
+  padding: 10px 24px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .shop-item button:hover {
   background: #fff;
   color: #000;
 }
+
+/* SECTIONS */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 60px;
+  text-align: center;
+}
+
+.section p {
+  color: #ccc;
+  max-

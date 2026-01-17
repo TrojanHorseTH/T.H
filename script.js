@@ -65,11 +65,12 @@ const preview = document.querySelector('.cheat-preview img');
 document.addEventListener('mousemove', (e) => {
   if (!preview) return;
 
-  const x = (window.innerWidth / 2 - e.clientX) / 25;
-  const y = (window.innerHeight / 2 - e.clientY) / 25;
+  const rect = preview.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
 
-  preview.style.transform = `
-    rotateY(${x}deg)
-    rotateX(${y}deg)
-  `;
+  const x = (centerX - e.clientX) / 25;
+  const y = (centerY - e.clientY) / 25;
+
+  preview.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
 });

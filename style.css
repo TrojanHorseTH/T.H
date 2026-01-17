@@ -158,4 +158,33 @@ nav a:hover {
 
 .section p {
   color: #ccc;
-  max-
+  max-width: 700px;
+  margin: auto;
+}
+
+.dark {
+  background: #0b0b0b;
+}
+
+.outline {
+  margin-top: 30px;
+  padding: 12px 30px;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.outline:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* FOOTER */
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 30px;
+  text-align: center;
+  color: #666;
+}

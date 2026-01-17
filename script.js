@@ -1,3 +1,4 @@
+/* === FALLING PARTICLES === */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -34,26 +35,41 @@ class Particle {
   }
 }
 
-function init() {
+function initParticles() {
   particles = [];
   for (let i = 0; i < COUNT; i++) {
     particles.push(new Particle());
   }
 }
 
-function animate() {
+function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach(p => {
     p.update();
     p.draw();
   });
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateParticles);
 }
 
 window.addEventListener("resize", () => {
   resize();
-  init();
+  initParticles();
 });
 
-init();
-animate();
+initParticles();
+animateParticles();
+
+/* === CHEAT PREVIEW CURSOR TILT === */
+const preview = document.querySelector('.cheat-preview img');
+
+document.addEventListener('mousemove', (e) => {
+  if (!preview) return;
+
+  const x = (window.innerWidth / 2 - e.clientX) / 25;
+  const y = (window.innerHeight / 2 - e.clientY) / 25;
+
+  preview.style.transform = `
+    rotateY(${x}deg)
+    rotateX(${y}deg)
+  `;
+});

@@ -5,6 +5,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth; /* Smooth scrolling */
+}
+
 body {
   background: #000;
   color: #fff;
@@ -33,14 +37,9 @@ body {
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   font-weight: 800;
-}
-
-.brand img {
-  width: 36px;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
 }
 
 nav a {
@@ -83,9 +82,22 @@ nav a:hover {
   cursor: pointer;
 }
 
-.hero-logo img {
-  width: 260px;
-  opacity: 0.9;
+/* CHEAT PREVIEW IMAGE */
+.cheat-preview {
+  position: relative;
+  width: 320px;
+  margin-left: 60px;
+  perspective: 800px;
+}
+
+.cheat-preview img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  transform-style: preserve-3d;
 }
 
 /* SHOP */

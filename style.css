@@ -268,3 +268,39 @@ body {
   border-radius: 16px;
   padding: var(--space-xl);
 }
+/* Mobile-first approach */
+.container {
+  width: 100%;
+  padding: 0 var(--space-md);
+  margin: 0 auto;
+}
+
+/* Responsive grid */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .container { max-width: 640px; }
+  .responsive-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .container { max-width: 768px; }
+  .responsive-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .container { max-width: 1024px; }
+  .responsive-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Touch-friendly buttons */
+.btn {
+  min-height: 44px; /* Apple HIG recommendation */
+  min-width: 44px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: 16px; /* Prevent zoom on iOS */
+}

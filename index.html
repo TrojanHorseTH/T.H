@@ -3,59 +3,682 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T.H Website</title>
-    <!-- Inline critical CSS to avoid render blocking -->
+    <title>TrojanHorse T.H | Advanced Game Enhancement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#0a0a0a;color:#fff;font-family:monospace;overflow:hidden;height:100vh}
-        #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
-        .container{position:relative;z-index:1;padding:20px}
-        .content{max-width:800px;margin:0 auto}
-        h1{color:#0ff;text-align:center;margin:20px 0;font-size:2.5em;text-shadow:0 0 10px #0ff}
-        .menu{margin:30px 0}
-        .menu-item{background:rgba(0,255,255,0.1);border:1px solid #0ff;padding:15px;margin:10px 0;cursor:pointer;transition:all 0.3s}
-        .menu-item:hover{background:rgba(0,255,255,0.2);box-shadow:0 0 15px #0ff}
-        .active{background:rgba(0,255,255,0.25);box-shadow:0 0 20px #0ff}
-        @media(max-width:600px){h1{font-size:1.8em}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(0, 255, 136, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
+        }
+
+        /* Leaf animation background */
+        #leaf-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .leaf {
+            position: absolute;
+            top: -50px;
+            width: 24px;
+            height: 24px;
+            opacity: 0.7;
+            filter: blur(0.5px);
+            pointer-events: none;
+        }
+
+        .leaf:nth-child(odd) {
+            background-color: #1a5c36;
+            border-radius: 80% 0 80% 0;
+        }
+
+        .leaf:nth-child(even) {
+            background-color: #2d7a52;
+            border-radius: 0 80% 0 80%;
+        }
+
+        .leaf:nth-child(3n) {
+            background-color: #0f4024;
+            border-radius: 60% 40% 30% 70%;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 15, 20, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .logo span {
+            color: #00ff88;
+            -webkit-text-fill-color: #00ff88;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00ff88;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff88;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 5% 8rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00aa55, #00cc88);
+            color: #000;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Cheat Preview Container */
+        .cheat-preview-container {
+            position: fixed;
+            width: 350px;
+            height: 250px;
+            pointer-events: none;
+            z-index: 100;
+            transition: transform 0.1s;
+        }
+
+        .cheat-preview {
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 25, 35, 0.9);
+            border-radius: 10px;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .cheat-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+        }
+
+        .cheat-header {
+            background: rgba(0, 20, 10, 0.8);
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .cheat-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ff88;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .cheat-content {
+            padding: 1rem;
+            height: calc(100% - 50px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cheat-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .cheat-feature i {
+            color: #00ff88;
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .cheat-feature span {
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #0f0;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            background: rgba(5, 10, 15, 0.7);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(20, 30, 40, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 10, 15, 0.9);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 136, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00ff88;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #00ff88;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #888;
+            max-width: 800px;
+            margin: 1.5rem auto 0;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem 5%;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cheat-preview-container {
+                display: none;
+            }
+            
+            body {
+                cursor: default;
+            }
+        }
     </style>
-    <!-- Defer non-critical CSS -->
-    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
 </head>
 <body>
-    <!-- Particles canvas - direct in HTML -->
-    <canvas id="particles"></canvas>
-    
-    <div class="container">
-        <div class="content">
-            <h1>T.H INTERFACE</h1>
-            
-            <div class="menu">
-                <div class="menu-item active" data-target="home">HOME</div>
-                <div class="menu-item" data-target="cheat">CHEAT MENU</div>
-                <div class="menu-item" data-target="projects">PROJECTS</div>
-                <div class="menu-item" data-target="about">ABOUT</div>
+    <!-- Custom cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Leaf animation background -->
+    <div id="leaf-background"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">TROJAN<span>HORSE</span> T.H</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#forum">Forum</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Cheat Preview (Follows cursor) -->
+    <div class="cheat-preview-container" id="cheatPreview">
+        <div class="cheat-preview">
+            <div class="cheat-header">
+                <h3>CHEAT MENU PREVIEW</h3>
             </div>
-            
-            <div id="home" class="section active">
-                <p>Welcome to the T.H interface. Navigate using the menu above.</p>
-            </div>
-            
-            <div id="cheat" class="section">
-                <p>Access the cheat menu for additional controls.</p>
-                <a href="cheat-menu.html" style="color:#0ff;text-decoration:none">→ Open Cheat Menu</a>
-            </div>
-            
-            <div id="projects" class="section">
-                <p>Project showcase coming soon.</p>
-            </div>
-            
-            <div id="about" class="section">
-                <p>T.H Development Interface</p>
+            <div class="cheat-content">
+                <div>
+                    <div class="cheat-feature">
+                        <i class="fas fa-crosshairs"></i>
+                        <span>Aimbot - Advanced targeting</span>
+                    </div>
+                    <div class="cheat-feature">
+                        <i class="fas fa-eye"></i>
+                        <span>Wallhack - See through walls</span>
+                    </div>
+                    <div class="cheat-feature">
+                        <i class="fas fa-running"></i>
+                        <span>Speed Hack - Move faster</span>
+                    </div>
+                    <div class="cheat-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Anti-detection - Undetectable</span>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>CLIENT ACTIVE - v2.5.1</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Async load JavaScript -->
-    <script src="script.js" async></script>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>UNLEASH YOUR GAMING POTENTIAL</h1>
+        <p>TrojanHorse T.H is the most advanced game enhancement software on the market, providing unparalleled advantages with our cutting-edge technology. Experience gaming like never before.</p>
+        <a href="#download" class="cta-button">DOWNLOAD NOW</a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">CORE FEATURES</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Smart Aimbot</h3>
+                <p>Our advanced AI-powered aimbot adapts to your playstyle, providing natural-looking aim assistance that's virtually undetectable.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3>ESP & Wallhacks</h3>
+                <p>See enemies through walls, track their movements, and identify loot and objectives with our comprehensive ESP system.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h3>Complete Stealth</h3>
+                <p>Our proprietary anti-cheat bypass technology ensures your account remains safe while using our enhancements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">TROJANHORSE T.H</div>
+        <div class="footer-links">
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+            <a href="#discord">Discord</a>
+        </div>
+        <p class="disclaimer">TrojanHorse T.H is a fictional software created for demonstration purposes only. This website does not promote or distribute actual cheating software. Cheating in online games violates terms of service and may result in account bans.</p>
+        <p class="copyright">&copy; 2023 TrojanHorse T.H. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Create falling leaves
+        function createLeaves() {
+            const leafContainer = document.getElementById('leaf-background');
+            const leafCount = 25;
+            
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+                
+                // Random properties for each leaf
+                const size = Math.random() * 15 + 10;
+                const startX = Math.random() * 100;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                leaf.style.left = `${startX}vw`;
+                leaf.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+                
+                leafContainer.appendChild(leaf);
+            }
+            
+            // Add CSS for falling animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    0% {
+                        transform: translateY(-50px) rotate(0deg);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 0.8;
+                    }
+                    90% {
+                        opacity: 0.6;
+                    }
+                    100% {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Cursor and cheat preview movement
+        document.addEventListener('DOMContentLoaded', function() {
+            createLeaves();
+            
+            const cursor = document.querySelector('.custom-cursor');
+            const cheatPreview = document.getElementById('cheatPreview');
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            let previewX = 0;
+            let previewY = 0;
+            
+            // Track mouse movement
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // Move custom cursor
+                cursor.style.left = `${mouseX}px`;
+                cursor.style.top = `${mouseY}px`;
+            });
+            
+            // Animate cursor and cheat preview smoothly
+            function animate() {
+                // Smooth movement for cursor
+                cursorX += (mouseX - cursorX) * 0.2;
+                cursorY += (mouseY - cursorY) * 0.2;
+                cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                
+                // Smooth movement for cheat preview (with offset)
+                previewX += (mouseX + 20 - previewX) * 0.1;
+                previewY += (mouseY + 20 - previewY) * 0.1;
+                cheatPreview.style.transform = `translate(${previewX}px, ${previewY}px)`;
+                
+                requestAnimationFrame(animate);
+            }
+            
+            // Start animation
+            animate();
+            
+            // Button click effect
+            const ctaButton = document.querySelector('.cta-button');
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(0, 255, 136, 0.4)';
+                ripple.style.width = '10px';
+                ripple.style.height = '10px';
+                ripple.style.left = `${e.clientX - ctaButton.getBoundingClientRect().left}px`;
+                ripple.style.top = `${e.clientY - ctaButton.getBoundingClientRect().top}px`;
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                ctaButton.appendChild(ripple);
+                
+                // Add ripple animation
+                const rippleStyle = document.createElement('style');
+                rippleStyle.innerHTML = `
+                    @keyframes ripple {
+                        0% {
+                            width: 10px;
+                            height: 10px;
+                            opacity: 0.8;
+                        }
+                        100% {
+                            width: 200px;
+                            height: 200px;
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(rippleStyle);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                    rippleStyle.remove();
+                }, 600);
+                
+                // Show fake download dialog
+                alert("Download started! Please check your downloads folder.\n\nNote: This is a demonstration. No actual software will be downloaded.");
+            });
+            
+            // Feature cards hover effect enhancement
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '100';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+            
+            // Nav link smooth scroll
+            document.querySelectorAll('nav a, .footer-links a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

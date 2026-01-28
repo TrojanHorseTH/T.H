@@ -1,337 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrojanHorse T.H</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>TrojanHorse Menu Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 
-        /* Header */
-        header {
-            background: rgba(10, 10, 10, 0.9);
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #00ff88;
-        }
+/* MAIN MENU */
+.menu {
+  width: 420px;
+  background: #0b0b0b;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+  overflow: hidden;
+}
 
-        .logo span {
-            color: #fff;
-        }
+/* HEADER */
+.menu-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-        nav a {
-            color: #ccc;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
+.logo {
+  height: 28px;
+  width: auto;
+  display: block;
+}
 
-        nav a:hover {
-            color: #00ff88;
-        }
+.version {
+  font-size: 0.75rem;
+  color: #888;
+}
 
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 2rem 2rem;
-        }
+/* TABS */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #1a1a1a;
+}
 
-        .hero {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            margin-bottom: 4rem;
-        }
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #888;
+  border-right: 1px solid #1a1a1a;
+}
 
-        .hero-text {
-            flex: 1;
-        }
+.tab:last-child {
+  border-right: none;
+}
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: #00ff88;
-        }
+.tab.active {
+  color: #fff;
+  background: #111;
+}
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #aaa;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+/* CONTENT */
+.content {
+  padding: 22px;
+}
 
-        .btn {
-            display: inline-block;
-            background: #00ff88;
-            color: #000;
-            padding: 0.8rem 2rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
+.section {
+  margin-bottom: 22px;
+}
 
-        .btn:hover {
-            background: #00cc66;
-        }
+.section-title {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
-        /* Preview Container - ACTUAL PNG with 3D effect */
-        .preview-container {
-            flex: 1;
-            height: 400px;
-            perspective: 1000px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* TOGGLE */
+.toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
 
-        .preview-box {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-        }
+.toggle span {
+  font-size: 0.9rem;
+  color: #ddd;
+}
 
-        .preview-front, .preview-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid #333;
-            background: #111;
-        }
+.switch {
+  width: 38px;
+  height: 20px;
+  background: #222;
+  border-radius: 10px;
+  position: relative;
+}
 
-        .preview-back {
-            transform: rotateY(180deg);
-            background: #151515;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
+.switch::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 4px;
+}
 
-        .preview-back p {
-            color: #aaa;
-            text-align: center;
-            font-size: 0.9rem;
-        }
+/* SLIDER */
+.slider {
+  margin-bottom: 14px;
+}
 
-        .preview-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.slider label {
+  font-size: 0.85rem;
+  color: #ddd;
+  display: block;
+  margin-bottom: 6px;
+}
 
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
+.bar {
+  height: 6px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  position: relative;
+}
 
-        .feature {
-            background: #151515;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid #333;
-        }
+.fill {
+  width: 65%;
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+}
 
-        .feature i {
-            font-size: 2rem;
-            color: #00ff88;
-            margin-bottom: 1rem;
-        }
-
-        .feature h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-        }
-
-        /* Leaf Animation */
-        .leaves {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .leaf {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #00ff88;
-            opacity: 0.3;
-            border-radius: 50% 0;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-            }
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid #333;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-            }
-            
-            .preview-container {
-                width: 100%;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-        }
-    </style>
+/* FOOTER */
+.menu-footer {
+  padding: 14px 22px;
+  border-top: 1px solid #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #666;
+}
+</style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">Trojan<span>Horse</span> T.H</div>
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#download">Download</a>
-            <a href="#support">Support</a>
-        </nav>
-    </header>
 
-    <!-- Leaves Background -->
-    <div class="leaves" id="leaves"></div>
+<div class="menu">
+  <div class="menu-header">
+    <img src="TrojanHorse.png" alt="TrojanHorse Logo" class="logo">
+    <span class="version">v1.0</span>
+  </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="hero">
-            <div class="hero-text">
-                <h1>Game Enhancement Suite</h1>
-                <p class="subtitle">Advanced tools for competitive gaming. TrojanHorse T.H provides the edge you need with precision and discretion.</p>
-                <a href="#download" class="btn">Download Now</a>
-            </div>
-            
-            <!-- ACTUAL 3D PNG Preview -->
-            <div class="preview-container">
-                <div class="preview-box" id="previewBox">
-                    <div class="preview-front">
-                        <!-- Using an actual cheat menu PNG from a placeholder service -->
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cheat Preview" class="preview-img">
-                    </div>
-                    <div class="preview-back">
-                        <p>cheat-preview.png<br>3D Interactive Preview<br>Move mouse to rotate</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="tabs">
+    <div class="tab active">AIMBOT</div>
+    <div class="tab">CONFIG</div>
+    <div class="tab">VISUAL</div>
+    <div class="tab">SETTINGS</div>
+  </div>
 
-        <!-- Features -->
-        <div class="features" id="features">
-            <div class="feature">
-                <i class="fas fa-crosshairs"></i>
-                <h3>Precision Aimbot</h3>
-                <p>Advanced targeting algorithms for maximum accuracy.</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-eye"></i>
-                <h3>ESP System</h3>
-                <p>See through walls and track enemy movements.</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Stealth Mode</h3>
-                <p>Undetectable operation with anti-cheat bypass.</p>
-            </div>
-        </div>
+  <div class="content">
+    <div class="section">
+      <div class="section-title">Primary Controls</div>
+
+      <div class="toggle">
+        <span>Enable Module</span>
+        <div class="switch"></div>
+      </div>
+
+      <div class="toggle">
+        <span>Auto Optimization</span>
+        <div class="switch"></div>
+      </div>
     </div>
 
-    <footer>
-        TrojanHorse T.H &copy; 2023 - For demonstration purposes only
-    </footer>
+    <div class="section">
+      <div class="section-title">Tuning</div>
 
-    <script>
-        // Create leaves
-        function createLeaves() {
-            const leaves = document.getElementById('leaves');
-            for (let i = 0; i < 15; i++) {
-                const leaf = document.createElement('div');
-                leaf.className = 'leaf';
-                leaf.style.left = Math.random() * 100 + 'vw';
-                leaf.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                leaf.style.animationDelay = Math.random() * 5 + 's';
-                leaf.style.opacity = Math.random() * 0.5 + 0.1;
-                leaf.style.width = leaf.style.height = (Math.random() * 15 + 10) + 'px';
-                leaves.appendChild(leaf);
-            }
-        }
+      <div class="slider">
+        <label>Precision Level</label>
+        <div class="bar">
+          <div class="fill"></div>
+        </div>
+      </div>
 
-        // 3D Rotation for preview box
-        const previewBox = document.getElementById('previewBox');
-        let mouseX = 0;
-        let mouseY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-            mouseY = (e.clientY / window.innerHeight) * 2 - 1;
-            
-            // Apply rotation based on mouse position
-            const rotateY = mouseX * 20; // Max 20 degrees rotation on Y axis
-            const rotateX = -mouseY * 15; // Max 15 degrees rotation on X axis
-            
-            previewBox.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-        });
+      <div class="slider">
+        <label>Response Speed</label>
+        <div class="bar">
+          <div class="fill" style="width:45%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        // Download button
-        document.querySelector('.btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('This is a demonstration. No actual software will be downloaded.');
-        });
+  <div class="menu-footer">
+    <span>Status: Unactive</span>
+    <span>Secure Session</span>
+  </div>
+</div>
 
-        // Initialize
-        createLeaves();
-    </script>
 </body>
 </html>

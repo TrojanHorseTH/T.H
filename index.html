@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrojanHorse T.H | Advanced Game Enhancement</title>
+    <title>TrojanHorse T.H | Advanced Game Enhancement Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,10 +13,22 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #7a63ff;
+            --dark-bg: #0a0a12;
+            --darker-bg: #07070f;
+            --card-bg: #141420;
+            --text: #f0f0f0;
+            --text-secondary: #b0b0c0;
+            --accent: #ff4d8d;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            background: #0a0a0f;
-            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
             overflow-x: hidden;
             min-height: 100vh;
             cursor: none;
@@ -25,14 +37,24 @@
         /* Custom cursor */
         .custom-cursor {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background-color: rgba(0, 255, 136, 0.5);
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s;
+            mix-blend-mode: screen;
+            transition: transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
         }
 
         /* Leaf animation background */
@@ -49,75 +71,76 @@
 
         .leaf {
             position: absolute;
-            top: -50px;
-            width: 24px;
-            height: 24px;
-            opacity: 0.7;
-            filter: blur(0.5px);
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
             pointer-events: none;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 136, 0.3));
         }
 
-        .leaf:nth-child(odd) {
-            background-color: #1a5c36;
-            border-radius: 80% 0 80% 0;
-        }
-
-        .leaf:nth-child(even) {
-            background-color: #2d7a52;
-            border-radius: 0 80% 0 80%;
-        }
-
-        .leaf:nth-child(3n) {
-            background-color: #0f4024;
-            border-radius: 60% 40% 30% 70%;
-        }
-
-        /* Header */
+        /* Glassmorphism header */
         header {
-            background: rgba(10, 15, 20, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
-            position: relative;
-            z-index: 10;
+            background: rgba(10, 10, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(122, 99, 255, 0.15);
+            z-index: 1000;
         }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #00ff88, #00ccff);
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--darker-bg);
+        }
+
+        .logo-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-        }
-
-        .logo span {
-            color: #00ff88;
-            -webkit-text-fill-color: #00ff88;
+            letter-spacing: -0.5px;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         nav a {
-            color: #b0b0b0;
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             transition: all 0.3s;
-            padding: 0.5rem 0;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         nav a:hover {
-            color: #00ff88;
+            color: var(--text);
         }
 
         nav a::after {
@@ -127,278 +150,462 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #00ff88;
-            transition: width 0.3s;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
 
         nav a:hover::after {
             width: 100%;
         }
 
-        /* Hero Section */
+        .nav-cta {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: var(--darker-bg);
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Hero section */
         .hero {
-            padding: 5rem 5% 8rem;
-            text-align: center;
+            padding: 12rem 5% 8rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
+        .hero-content h1 {
             font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, #00ff88, #00ccff);
+            background: linear-gradient(135deg, var(--text) 0%, var(--primary) 50%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.2;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: #aaa;
+        .hero-content p {
+            font-size: 1.2rem;
             line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Cheat Preview Container */
+        .cheat-preview-container {
+            position: fixed;
+            width: 400px;
+            height: 500px;
+            pointer-events: none;
+            z-index: 100;
+            transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+        }
+
+        .cheat-preview-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+
+        .cheat-preview {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(122, 99, 255, 0.3);
+            background: linear-gradient(145deg, rgba(20, 20, 32, 0.9), rgba(10, 10, 18, 0.9));
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 136, 0.05) 0%, 
+                rgba(122, 99, 255, 0.05) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .preview-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(10, 10, 18, 0.8);
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(122, 99, 255, 0.2);
+        }
+
+        .preview-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .preview-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .preview-image-placeholder {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, rgba(30, 30, 45, 0.7), rgba(15, 15, 25, 0.7));
+        }
+
+        .preview-image {
+            width: 320px;
+            height: 240px;
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(122, 99, 255, 0.1));
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(122, 99, 255, 0.3);
+        }
+
+        .preview-image i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .preview-image span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .preview-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(10, 10, 18, 0.8);
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(122, 99, 255, 0.2);
+        }
+
+        .preview-version {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Features section */
+        .features {
+            padding: 6rem 5%;
+            background: var(--darker-bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text) 50%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(122, 99, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.03), rgba(122, 99, 255, 0.03));
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(122, 99, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-icon i {
+            font-size: 1.8rem;
+            color: var(--darker-bg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #00aa55, #00cc88);
-            color: #000;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: var(--darker-bg);
+            padding: 1.2rem 3rem;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-decoration: none;
-            letter-spacing: 1px;
             transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
             border: none;
             cursor: pointer;
         }
 
         .cta-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
-        }
-
-        /* Cheat Preview Container */
-        .cheat-preview-container {
-            position: fixed;
-            width: 350px;
-            height: 250px;
-            pointer-events: none;
-            z-index: 100;
-            transition: transform 0.1s;
-        }
-
-        .cheat-preview {
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 25, 35, 0.9);
-            border-radius: 10px;
-            border: 2px solid #00ff88;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
-            overflow: hidden;
-            position: relative;
-            backdrop-filter: blur(5px);
-        }
-
-        .cheat-preview::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #00ff88, #00ccff);
-        }
-
-        .cheat-header {
-            background: rgba(0, 20, 10, 0.8);
-            padding: 0.8rem;
-            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
-        }
-
-        .cheat-header h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ff88;
-            font-size: 1.2rem;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .cheat-content {
-            padding: 1rem;
-            height: calc(100% - 50px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .cheat-feature {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.8rem;
-        }
-
-        .cheat-feature i {
-            color: #00ff88;
-            margin-right: 0.8rem;
-            font-size: 1.1rem;
-        }
-
-        .cheat-feature span {
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 0.5rem;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #0f0;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-
-        /* Features Section */
-        .features {
-            padding: 6rem 5%;
-            background: rgba(5, 10, 15, 0.7);
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: #00ff88;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: rgba(20, 30, 40, 0.8);
-            border-radius: 10px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: #00ff88;
-            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: #00ff88;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .feature-card p {
-            color: #aaa;
-            line-height: 1.6;
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
         }
 
         /* Footer */
         footer {
-            background: rgba(5, 10, 15, 0.9);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(0, 255, 136, 0.3);
+            background: var(--darker-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(122, 99, 255, 0.1);
             position: relative;
             z-index: 2;
         }
 
-        .footer-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            color: #00ff88;
+            color: var(--text);
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
-            color: #aaa;
+            color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer-links a:hover {
-            color: #00ff88;
+            color: var(--primary);
         }
 
-        .copyright {
-            color: #666;
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(122, 99, 255, 0.1);
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            margin-top: 2rem;
         }
 
         .disclaimer {
-            font-size: 0.8rem;
-            color: #888;
             max-width: 800px;
-            margin: 1.5rem auto 0;
+            margin: 2rem auto 0;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
             line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 1rem 5%;
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 10rem;
             }
             
-            .logo {
-                margin-bottom: 1rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
+            .hero-stats {
+                justify-content: center;
             }
             
             .cheat-preview-container {
@@ -409,57 +616,81 @@
                 cursor: default;
             }
         }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 5%;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .cta-title {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Custom cursor -->
-    <div class="custom-cursor"></div>
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+    </div>
 
     <!-- Leaf animation background -->
     <div id="leaf-background"></div>
 
     <!-- Header -->
     <header>
-        <div class="logo">TROJAN<span>HORSE</span> T.H</div>
+        <div class="logo-container">
+            <div class="logo-icon">TH</div>
+            <div class="logo-text">TROJANHORSE</div>
+        </div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#download">Download</a></li>
+                <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#support">Support</a></li>
-                <li><a href="#forum">Forum</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact" class="nav-cta">Get Started</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Cheat Preview (Follows cursor) -->
     <div class="cheat-preview-container" id="cheatPreview">
-        <div class="cheat-preview">
-            <div class="cheat-header">
-                <h3>CHEAT MENU PREVIEW</h3>
-            </div>
-            <div class="cheat-content">
-                <div>
-                    <div class="cheat-feature">
-                        <i class="fas fa-crosshairs"></i>
-                        <span>Aimbot - Advanced targeting</span>
-                    </div>
-                    <div class="cheat-feature">
-                        <i class="fas fa-eye"></i>
-                        <span>Wallhack - See through walls</span>
-                    </div>
-                    <div class="cheat-feature">
-                        <i class="fas fa-running"></i>
-                        <span>Speed Hack - Move faster</span>
-                    </div>
-                    <div class="cheat-feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Anti-detection - Undetectable</span>
+        <div class="cheat-preview-wrapper">
+            <div class="cheat-preview">
+                <div class="preview-overlay"></div>
+                <div class="preview-header">
+                    <div class="preview-title">CHEAT-PREVIEW.PNG</div>
+                    <div class="preview-status">
+                        <div class="status-indicator"></div>
+                        <span style="color: var(--primary); font-size: 0.8rem;">ACTIVE</span>
                     </div>
                 </div>
-                <div class="status-indicator">
-                    <div class="status-dot"></div>
-                    <span>CLIENT ACTIVE - v2.5.1</span>
+                <div class="preview-image-placeholder">
+                    <div class="preview-image">
+                        <i class="fas fa-gamepad"></i>
+                        <span>cheat-preview.png</span>
+                        <small style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.8rem;">Interactive 3D Preview</small>
+                    </div>
+                </div>
+                <div class="preview-footer">
+                    <div class="preview-version">v2.8.4 • ULTRA EDITION</div>
+                    <div style="color: var(--text-secondary); font-size: 0.8rem;">Move cursor to rotate</div>
                 </div>
             </div>
         </div>
@@ -467,72 +698,146 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <h1>UNLEASH YOUR GAMING POTENTIAL</h1>
-        <p>TrojanHorse T.H is the most advanced game enhancement software on the market, providing unparalleled advantages with our cutting-edge technology. Experience gaming like never before.</p>
-        <a href="#download" class="cta-button">DOWNLOAD NOW</a>
+        <div class="hero-content">
+            <h1>Next-Generation Game Enhancement Technology</h1>
+            <p>TrojanHorse T.H delivers unprecedented performance with our proprietary AI-driven engine. Experience gaming at its peak with seamless integration and maximum discretion.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-value">99.8%</div>
+                    <div class="stat-label">Undetected Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24ms</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2.4M+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Features Section -->
     <section class="features" id="features">
-        <h2 class="section-title">CORE FEATURES</h2>
+        <div class="section-header">
+            <div class="section-subtitle">Why Choose TrojanHorse</div>
+            <h2 class="section-title">Industry-Leading Technology</h2>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Our proprietary engine delivers performance that redefines what's possible in game enhancement.</p>
+        </div>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-robot"></i>
+                    <i class="fas fa-brain"></i>
                 </div>
-                <h3>Smart Aimbot</h3>
-                <p>Our advanced AI-powered aimbot adapts to your playstyle, providing natural-looking aim assistance that's virtually undetectable.</p>
+                <h3>AI-Powered Aim</h3>
+                <p>Advanced neural networks analyze gameplay patterns to deliver human-like aiming that adapts to your playstyle.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-layer-group"></i>
+                    <i class="fas fa-eye"></i>
                 </div>
-                <h3>ESP & Wallhacks</h3>
-                <p>See enemies through walls, track their movements, and identify loot and objectives with our comprehensive ESP system.</p>
+                <h3>Advanced ESP</h3>
+                <p>Comprehensive environmental sensing with customizable overlays for maximum situational awareness.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-user-secret"></i>
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3>Complete Stealth</h3>
-                <p>Our proprietary anti-cheat bypass technology ensures your account remains safe while using our enhancements.</p>
+                <h3>Stealth Technology</h3>
+                <p>Proprietary bypass methods ensure complete anonymity and protection against detection systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Ready to Dominate?</h2>
+            <p class="cta-description">Join millions of gamers who have enhanced their experience with TrojanHorse T.H. Download now and unlock your full potential.</p>
+            <a href="#" class="cta-button">
+                <i class="fas fa-download"></i>
+                Download TrojanHorse T.H
+            </a>
+            <div style="margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+                <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
+                Secure installation • 30-day money-back guarantee
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-logo">TROJANHORSE T.H</div>
-        <div class="footer-links">
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
-            <a href="#discord">Discord</a>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>TrojanHorse T.H</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#press">Press</a></li>
+                    <li><a href="#brand">Brand Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Products</h4>
+                <ul class="footer-links">
+                    <li><a href="#standard">Standard Edition</a></li>
+                    <li><a href="#pro">Pro Edition</a></li>
+                    <li><a href="#ultra">Ultra Edition</a></li>
+                    <li><a href="#enterprise">Enterprise</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#docs">Documentation</a></li>
+                    <li><a href="#contact">Contact Support</a></li>
+                    <li><a href="#status">System Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#cookies">Cookie Policy</a></li>
+                    <li><a href="#compliance">Compliance</a></li>
+                </ul>
+            </div>
         </div>
-        <p class="disclaimer">TrojanHorse T.H is a fictional software created for demonstration purposes only. This website does not promote or distribute actual cheating software. Cheating in online games violates terms of service and may result in account bans.</p>
-        <p class="copyright">&copy; 2023 TrojanHorse T.H. All rights reserved.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2023 TrojanHorse Technologies. All rights reserved.</p>
+            <p class="disclaimer">This website is a demonstration only. TrojanHorse T.H is fictional software created for design purposes. Cheating in online games violates terms of service and may result in account suspension or banning.</p>
+        </div>
     </footer>
 
     <script>
         // Create falling leaves
         function createLeaves() {
             const leafContainer = document.getElementById('leaf-background');
-            const leafCount = 25;
+            const leafCount = 20;
             
             for (let i = 0; i < leafCount; i++) {
                 const leaf = document.createElement('div');
                 leaf.classList.add('leaf');
                 
-                // Random properties for each leaf
+                // Create leaf shape with CSS
+                leaf.style.backgroundColor = i % 3 === 0 ? '#00ff88' : (i % 3 === 1 ? '#7a63ff' : '#ff4d8d');
+                leaf.style.opacity = '0.6';
+                leaf.style.borderRadius = i % 2 === 0 ? '80% 0 80% 0' : '0 80% 0 80%';
+                
+                // Random properties
                 const size = Math.random() * 15 + 10;
                 const startX = Math.random() * 100;
-                const duration = Math.random() * 10 + 10;
-                const delay = Math.random() * 5;
+                const duration = Math.random() * 15 + 15;
+                const delay = Math.random() * 10;
+                const rotation = Math.random() * 360;
                 
                 leaf.style.width = `${size}px`;
                 leaf.style.height = `${size}px`;
                 leaf.style.left = `${startX}vw`;
+                leaf.style.transform = `rotate(${rotation}deg)`;
                 leaf.style.animation = `fall ${duration}s linear ${delay}s infinite`;
                 
                 leafContainer.appendChild(leaf);
@@ -543,7 +848,7 @@
             style.innerHTML = `
                 @keyframes fall {
                     0% {
-                        transform: translateY(-50px) rotate(0deg);
+                        transform: translateY(-100px) rotate(0deg);
                         opacity: 0;
                     }
                     10% {
@@ -553,7 +858,7 @@
                         opacity: 0.6;
                     }
                     100% {
-                        transform: translateY(100vh) rotate(360deg);
+                        transform: translateY(100vh) rotate(720deg);
                         opacity: 0;
                     }
                 }
@@ -561,23 +866,36 @@
             document.head.appendChild(style);
         }
         
-        // Cursor and cheat preview movement
+        // 3D cheat preview movement
         document.addEventListener('DOMContentLoaded', function() {
             createLeaves();
             
             const cursor = document.querySelector('.custom-cursor');
             const cheatPreview = document.getElementById('cheatPreview');
+            const previewWrapper = document.querySelector('.cheat-preview-wrapper');
             let mouseX = 0;
             let mouseY = 0;
             let cursorX = 0;
             let cursorY = 0;
             let previewX = 0;
             let previewY = 0;
+            let rotationY = 0;
+            let rotationX = 0;
             
             // Track mouse movement
             document.addEventListener('mousemove', function(e) {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                
+                // Calculate rotation based on mouse position
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                
+                rotationY = ((mouseX - centerX) / centerX) * 15; // Max 15 degrees rotation
+                rotationX = -((mouseY - centerY) / centerY) * 10; // Max 10 degrees rotation
+                
+                // Update preview wrapper rotation
+                previewWrapper.style.transform = `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`;
                 
                 // Move custom cursor
                 cursor.style.left = `${mouseX}px`;
@@ -587,14 +905,17 @@
             // Animate cursor and cheat preview smoothly
             function animate() {
                 // Smooth movement for cursor
-                cursorX += (mouseX - cursorX) * 0.2;
-                cursorY += (mouseY - cursorY) * 0.2;
-                cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
                 
                 // Smooth movement for cheat preview (with offset)
-                previewX += (mouseX + 20 - previewX) * 0.1;
-                previewY += (mouseY + 20 - previewY) * 0.1;
+                previewX += (mouseX + 30 - previewX) * 0.08;
+                previewY += (mouseY + 30 - previewY) * 0.08;
                 cheatPreview.style.transform = `translate(${previewX}px, ${previewY}px)`;
+                
+                // Add subtle floating animation
+                const floatY = Math.sin(Date.now() / 1500) * 5;
+                cheatPreview.style.transform += ` translateY(${floatY}px)`;
                 
                 requestAnimationFrame(animate);
             }
@@ -602,76 +923,178 @@
             // Start animation
             animate();
             
-            // Button click effect
+            // CTA button interaction
             const ctaButton = document.querySelector('.cta-button');
             ctaButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Create ripple effect
-                const ripple = document.createElement('div');
-                ripple.style.position = 'absolute';
-                ripple.style.borderRadius = '50%';
-                ripple.style.backgroundColor = 'rgba(0, 255, 136, 0.4)';
-                ripple.style.width = '10px';
-                ripple.style.height = '10px';
-                ripple.style.left = `${e.clientX - ctaButton.getBoundingClientRect().left}px`;
-                ripple.style.top = `${e.clientY - ctaButton.getBoundingClientRect().top}px`;
-                ripple.style.transform = 'translate(-50%, -50%)';
-                ripple.style.animation = 'ripple 0.6s linear';
+                // Create particle effect
+                for (let i = 0; i < 20; i++) {
+                    createParticle(e.clientX, e.clientY);
+                }
                 
-                ctaButton.appendChild(ripple);
-                
-                // Add ripple animation
-                const rippleStyle = document.createElement('style');
-                rippleStyle.innerHTML = `
-                    @keyframes ripple {
-                        0% {
-                            width: 10px;
-                            height: 10px;
-                            opacity: 0.8;
-                        }
-                        100% {
-                            width: 200px;
-                            height: 200px;
-                            opacity: 0;
-                        }
-                    }
-                `;
-                document.head.appendChild(rippleStyle);
-                
-                // Remove ripple after animation
+                // Show download modal
                 setTimeout(() => {
-                    ripple.remove();
-                    rippleStyle.remove();
-                }, 600);
-                
-                // Show fake download dialog
-                alert("Download started! Please check your downloads folder.\n\nNote: This is a demonstration. No actual software will be downloaded.");
+                    showDownloadModal();
+                }, 300);
             });
             
-            // Feature cards hover effect enhancement
-            const featureCards = document.querySelectorAll('.feature-card');
-            featureCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.zIndex = '100';
-                });
+            // Create particle effect
+            function createParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '8px';
+                particle.style.height = '8px';
+                particle.style.backgroundColor = '#00ff88';
+                particle.style.borderRadius = '50%';
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '9999';
                 
-                card.addEventListener('mouseleave', function() {
-                    this.style.zIndex = '1';
-                });
-            });
+                document.body.appendChild(particle);
+                
+                // Random direction and animation
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 2 + Math.random() * 3;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+                
+                let opacity = 1;
+                const animation = setInterval(() => {
+                    x += vx;
+                    y += vy;
+                    opacity -= 0.03;
+                    
+                    particle.style.left = `${x}px`;
+                    particle.style.top = `${y}px`;
+                    particle.style.opacity = opacity;
+                    
+                    if (opacity <= 0) {
+                        clearInterval(animation);
+                        particle.remove();
+                    }
+                }, 16);
+            }
             
-            // Nav link smooth scroll
+            // Show download modal
+            function showDownloadModal() {
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.zIndex = '9998';
+                modal.style.backdropFilter = 'blur(10px)';
+                
+                modal.innerHTML = `
+                    <div style="background: linear-gradient(145deg, #141420, #0a0a12); padding: 3rem; border-radius: 16px; max-width: 500px; width: 90%; border: 1px solid rgba(122, 99, 255, 0.3); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: #00ff88;">Download TrojanHorse T.H</h3>
+                        <p style="color: #b0b0c0; margin-bottom: 2rem; line-height: 1.6;">Select your edition to begin the download process. Your download will start automatically.</p>
+                        
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                            <div style="flex: 1; background: rgba(20, 20, 32, 0.7); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(122, 99, 255, 0.2); cursor: pointer; transition: all 0.3s;" 
+                                 onmouseover="this.style.borderColor='#00ff88'; this.style.transform='translateY(-5px)'" 
+                                 onmouseout="this.style.borderColor='rgba(122, 99, 255, 0.2)'; this.style.transform='translateY(0)'">
+                                <h4 style="color: #00ff88; margin-bottom: 0.5rem;">Standard</h4>
+                                <p style="color: #b0b0c0; font-size: 0.9rem;">Basic features</p>
+                            </div>
+                            <div style="flex: 1; background: rgba(20, 20, 32, 0.7); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(122, 99, 255, 0.2); cursor: pointer; transition: all 0.3s;" 
+                                 onmouseover="this.style.borderColor='#7a63ff'; this.style.transform='translateY(-5px)'" 
+                                 onmouseout="this.style.borderColor='rgba(122, 99, 255, 0.2)'; this.style.transform='translateY(0)'">
+                                <h4 style="color: #7a63ff; margin-bottom: 0.5rem;">Pro</h4>
+                                <p style="color: #b0b0c0; font-size: 0.9rem;">Advanced features</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <button onclick="this.parentElement.parentElement.remove();" style="flex: 1; padding: 1rem; background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: #b0b0c0; border-radius: 8px; cursor: pointer; transition: all 0.3s;">Cancel</button>
+                            <button onclick="startDownload(); this.parentElement.parentElement.remove();" style="flex: 1; padding: 1rem; background: linear-gradient(90deg, #00ff88, #00cc6a); color: #0a0a12; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s;">Download Now</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // Close modal on background click
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+            }
+            
+            // Start download function
+            window.startDownload = function() {
+                // Show download progress
+                const progress = document.createElement('div');
+                progress.style.position = 'fixed';
+                progress.style.bottom = '30px';
+                progress.style.right = '30px';
+                progress.style.backgroundColor = '#141420';
+                progress.style.padding = '1.5rem';
+                progress.style.borderRadius = '12px';
+                progress.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+                progress.style.border = '1px solid rgba(122, 99, 255, 0.3)';
+                progress.style.zIndex = '9999';
+                progress.style.maxWidth = '300px';
+                
+                progress.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #00ff88, #7a63ff); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-download" style="color: #0a0a12;"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: #00ff88;">Downloading...</h4>
+                            <p style="color: #b0b0c0; font-size: 0.9rem;">trojanhorse-th-ultra.exe</p>
+                        </div>
+                    </div>
+                    <div style="background: rgba(0, 0, 0, 0.3); height: 6px; border-radius: 3px; overflow: hidden;">
+                        <div id="downloadProgress" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00ff88, #7a63ff); transition: width 0.5s;"></div>
+                    </div>
+                    <p id="progressText" style="color: #b0b0c0; font-size: 0.8rem; text-align: center; margin-top: 0.5rem;">Initializing...</p>
+                `;
+                
+                document.body.appendChild(progress);
+                
+                // Simulate download progress
+                let percent = 0;
+                const interval = setInterval(() => {
+                    percent += Math.random() * 10;
+                    if (percent >= 100) {
+                        percent = 100;
+                        clearInterval(interval);
+                        
+                        document.getElementById('progressText').textContent = 'Download complete!';
+                        
+                        // Remove progress after 3 seconds
+                        setTimeout(() => {
+                            progress.remove();
+                        }, 3000);
+                    }
+                    
+                    document.getElementById('downloadProgress').style.width = `${percent}%`;
+                    document.getElementById('progressText').textContent = `Downloading... ${Math.round(percent)}%`;
+                }, 200);
+            };
+            
+            // Smooth scroll for navigation
             document.querySelectorAll('nav a, .footer-links a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId.startsWith('#')) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
                         const targetElement = document.querySelector(targetId);
+                        
                         if (targetElement) {
                             window.scrollTo({
-                                top: targetElement.offsetTop - 80,
+                                top: targetElement.offsetTop - 100,
                                 behavior: 'smooth'
                             });
                         }

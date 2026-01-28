@@ -2,459 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Modern interactive portfolio featuring creative web development and design projects">
-    <meta name="keywords" content="web development, portfolio, creative coding, interactive design, JavaScript">
-    <meta name="author" content="TrojanHorseTH">
-    <meta name="theme-color" content="#6366f1">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="T.H Creative Portfolio">
-    <meta property="og:description" content="Interactive web development portfolio with creative coding projects">
-    <meta property="og:type" content="website">
-    
-    <!-- Performance hints -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T.H Portfolio</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
-    
-    <title>T.H | Interactive Portfolio</title>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader">
-            <div class="particle-loader"></div>
-            <span class="loading-text">Initializing Systems</span>
-        </div>
-    </div>
-
-    <!-- Cursor Effect -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursorFollower"></div>
-
-    <!-- Main Container -->
-    <div class="container" id="mainContainer">
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="#home" class="logo">
-                    <span class="logo-icon">⚡</span>
-                    <span class="logo-text">T.H</span>
-                </a>
-                
-                <div class="nav-menu" id="navMenu">
-                    <ul class="nav-links">
-                        <li><a href="#home" class="nav-link active" data-nav="home">Home</a></li>
-                        <li><a href="#projects" class="nav-link" data-nav="projects">Projects</a></li>
-                        <li><a href="#cheat-menu" class="nav-link" data-nav="cheat-menu">Features</a></li>
-                        <li><a href="#about" class="nav-link" data-nav="about">About</a></li>
-                        <li><a href="#contact" class="nav-link" data-nav="contact">Contact</a></li>
-                    </ul>
-                    
-                    <div class="theme-toggle">
-                        <button class="theme-btn" id="themeToggle" aria-label="Toggle dark/light mode">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                    <span class="menu-bar"></span>
-                    <span class="menu-bar"></span>
-                    <span class="menu-bar"></span>
-                </button>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">T.H</a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#cheat-menu" class="nav-link">Cheat Menu</a>
+                <a href="#about" class="nav-link">About</a>
             </div>
-        </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Hero Section -->
-            <section id="home" class="section hero-section active">
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container">
                 <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 class="hero-title">
-                            <span class="title-line">Creative</span>
-                            <span class="title-line">
-                                <span class="highlight">Development</span>
-                                <span class="cursor-blink">|</span>
-                            </span>
-                            <span class="title-line">Portfolio</span>
-                        </h1>
-                        
-                        <p class="hero-subtitle">
-                            Building immersive digital experiences with cutting-edge 
-                            <span class="typewriter" data-words='["Web Technologies", "Creative Coding", "Interactive Design", "Performance Optimization"]'></span>
-                        </p>
-                        
-                        <div class="hero-cta">
-                            <a href="#projects" class="btn btn-primary">
-                                <span>View Projects</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                            <a href="#contact" class="btn btn-secondary">
-                                <span>Get in Touch</span>
-                                <i class="fas fa-paper-plane"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-visual">
-                        <div class="floating-cube" id="floatingCube">
-                            <div class="cube-face front">T</div>
-                            <div class="cube-face back">H</div>
-                            <div class="cube-face right">.</div>
-                            <div class="cube-face left">DEV</div>
-                            <div class="cube-face top"></div>
-                            <div class="cube-face bottom"></div>
-                        </div>
+                    <h1 class="hero-title">Creative <span class="highlight">Development</span> Portfolio</h1>
+                    <p class="hero-subtitle">Building interactive web experiences with modern technologies</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#cheat-menu" class="btn btn-secondary">Try Cheat Menu</a>
                     </div>
                 </div>
-                
-                <div class="scroll-indicator">
-                    <div class="mouse">
-                        <div class="wheel"></div>
+                <div class="hero-visual">
+                    <div class="cube">
+                        <div class="face front">T</div>
+                        <div class="face back">H</div>
+                        <div class="face right">.</div>
+                        <div class="face left">DEV</div>
                     </div>
-                    <span class="scroll-text">Scroll to explore</span>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Projects Section -->
-            <section id="projects" class="section projects-section">
-                <div class="section-header">
-                    <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
-                    <p class="section-subtitle">Interactive web experiences and creative coding experiments</p>
-                </div>
-                
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>Projects</h2>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-gamepad"></i>
-                            </div>
-                            <h3 class="project-title">Interactive Cheat Menu</h3>
-                        </div>
-                        <p class="project-desc">Customizable debug panel with real-time controls and visualization</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                        <a href="cheat-menu.html" class="project-link" target="_blank">
-                            <span>Live Preview</span>
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
+                        <h3>Cheat Menu System</h3>
+                        <p>Interactive debug panel with real-time controls</p>
+                        <a href="cheat-menu.html" class="btn">View Demo</a>
                     </div>
-                    
                     <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-particle"></i>
-                            </div>
-                            <h3 class="project-title">Particle System</h3>
-                        </div>
-                        <p class="project-desc">Optimized real-time particle animation engine with interactive controls</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Canvas API</span>
-                            <span class="tech-tag">WebGL</span>
-                            <span class="tech-tag">Performance</span>
-                        </div>
-                        <a href="#" class="project-link">
-                            <span>Explore Demo</span>
-                            <i class="fas fa-play-circle"></i>
-                        </a>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <h3 class="project-title">Portfolio Engine</h3>
-                        </div>
-                        <p class="project-desc">Modern portfolio framework with smooth animations and responsive design</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Modern CSS</span>
-                            <span class="tech-tag">ES6+</span>
-                            <span class="tech-tag">Accessibility</span>
-                        </div>
-                        <a href="#" class="project-link">
-                            <span>View Source</span>
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Features/Cheat Menu Section -->
-            <section id="cheat-menu" class="section features-section">
-                <div class="section-header">
-                    <h2 class="section-title">Interactive <span class="highlight">Features</span></h2>
-                    <p class="section-subtitle">Explore the technical capabilities and interactive elements</p>
-                </div>
-                
-                <div class="features-container">
-                    <div class="feature-controls">
-                        <div class="control-panel">
-                            <h3 class="control-title">Performance Controls</h3>
-                            
-                            <div class="control-group">
-                                <label class="control-label">
-                                    <span>Particle Density</span>
-                                    <span class="control-value" id="particleValue">50%</span>
-                                </label>
-                                <input type="range" min="10" max="100" value="50" class="control-slider" id="particleSlider">
-                            </div>
-                            
-                            <div class="control-group">
-                                <label class="control-label">
-                                    <span>Animation Speed</span>
-                                    <span class="control-value" id="speedValue">Normal</span>
-                                </label>
-                                <div class="control-buttons">
-                                    <button class="control-btn active" data-speed="slow">Slow</button>
-                                    <button class="control-btn" data-speed="normal">Normal</button>
-                                    <button class="control-btn" data-speed="fast">Fast</button>
-                                </div>
-                            </div>
-                            
-                            <div class="control-group">
-                                <label class="control-label">
-                                    <span>Visual Effects</span>
-                                </label>
-                                <div class="control-switches">
-                                    <label class="switch">
-                                        <input type="checkbox" id="particleToggle" checked>
-                                        <span class="slider"></span>
-                                        <span class="switch-label">Particles</span>
-                                    </label>
-                                    <label class="switch">
-                                        <input type="checkbox" id="cursorToggle" checked>
-                                        <span class="slider"></span>
-                                        <span class="switch-label">Custom Cursor</span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <button class="btn btn-control" id="resetSettings">
-                                <i class="fas fa-redo"></i>
-                                <span>Reset Settings</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-preview">
-                        <div class="preview-header">
-                            <h3 class="preview-title">Live Preview</h3>
-                            <div class="preview-stats">
-                                <div class="stat">
-                                    <span class="stat-label">FPS</span>
-                                    <span class="stat-value" id="fpsCounter">60</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-label">Particles</span>
-                                    <span class="stat-value" id="particleCounter">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="preview-canvas" id="particleCanvas">
-                            <!-- Particles will be drawn here -->
-                        </div>
-                        
-                        <div class="preview-info">
-                            <p>Adjust the controls to see real-time changes in the particle system performance.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- About Section -->
-            <section id="about" class="section about-section">
-                <div class="section-header">
-                    <h2 class="section-title">About <span class="highlight">This Project</span></h2>
-                    <p class="section-subtitle">Technical details and development approach</p>
-                </div>
-                
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3 class="about-heading">Modern Web Development Stack</h3>
-                        <p>This portfolio is built with performance and user experience as primary concerns. Every component is optimized for speed and accessibility.</p>
-                        
-                        <div class="about-features">
-                            <div class="feature-item">
-                                <i class="fas fa-bolt"></i>
-                                <div>
-                                    <h4>Performance Optimized</h4>
-                                    <p>Lazy loading, optimized animations, and efficient JavaScript</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-mobile-alt"></i>
-                                <div>
-                                    <h4>Fully Responsive</h4>
-                                    <p>Perfect experience on all devices from mobile to desktop</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-universal-access"></i>
-                                <div>
-                                    <h4>Accessibility Focused</h4>
-                                    <p>WCAG compliant with proper ARIA labels and keyboard navigation</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="about-tech">
-                        <h3 class="tech-heading">Technologies Used</h3>
-                        <div class="tech-stack">
-                            <div class="tech-item">
-                                <div class="tech-icon">HTML5</div>
-                                <div class="tech-bar">
-                                    <div class="tech-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="tech-item">
-                                <div class="tech-icon">CSS3</div>
-                                <div class="tech-bar">
-                                    <div class="tech-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="tech-item">
-                                <div class="tech-icon">JavaScript</div>
-                                <div class="tech-bar">
-                                    <div class="tech-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section id="contact" class="section contact-section">
-                <div class="section-header">
-                    <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
-                    <p class="section-subtitle">Connect for collaborations or just to say hello</p>
-                </div>
-                
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <h3 class="contact-title">GitHub</h3>
-                            <p class="contact-desc">Check out the source code and other projects</p>
-                            <a href="https://github.com/TrojanHorseTH" target="_blank" class="contact-link">
-                                <span>@TrojanHorseTH</span>
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h3 class="contact-title">Projects</h3>
-                            <p class="contact-desc">Explore interactive demos and experiments</p>
-                            <a href="#projects" class="contact-link">
-                                <span>View All Projects</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-actions">
-                        <div class="action-card">
-                            <h3 class="action-title">Want to Collaborate?</h3>
-                            <p class="action-desc">Interested in web development, creative coding, or interactive design projects? Let's create something amazing together.</p>
-                            <div class="action-buttons">
-                                <button class="btn btn-action" id="exploreBtn">
-                                    <i class="fas fa-rocket"></i>
-                                    <span>Explore More</span>
-                                </button>
-                                <button class="btn btn-action" id="sourceBtn">
-                                    <i class="fab fa-github"></i>
-                                    <span>View Source</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <span class="logo-icon">⚡</span>
-                        <span class="logo-text">T.H Portfolio</span>
-                    </div>
-                    <p class="footer-tagline">Building the future of web experiences</p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4 class="link-title">Navigation</h4>
-                        <a href="#home" class="footer-link">Home</a>
-                        <a href="#projects" class="footer-link">Projects</a>
-                        <a href="#cheat-menu" class="footer-link">Features</a>
-                    </div>
-                    <div class="link-group">
-                        <h4 class="link-title">Resources</h4>
-                        <a href="#about" class="footer-link">About</a>
-                        <a href="#contact" class="footer-link">Contact</a>
-                        <a href="https://github.com/TrojanHorseTH/T.H" target="_blank" class="footer-link">GitHub</a>
-                    </div>
-                </div>
-                
-                <div class="footer-bottom">
-                    <p class="copyright">&copy; 2024 T.H Portfolio. All rights reserved.</p>
-                    <div class="footer-actions">
-                        <button class="footer-btn" id="backToTop" aria-label="Back to top">
-                            <i class="fas fa-arrow-up"></i>
-                        </button>
-                        <button class="footer-btn" id="toggleAnimations" aria-label="Toggle animations">
-                            <i class="fas fa-play"></i>
-                        </button>
+                        <h3>Particle Animation</h3>
+                        <p>Optimized particle system with interactive controls</p>
+                        <button class="btn" id="particleDemo">Launch Demo</button>
                     </div>
                 </div>
             </div>
-        </footer>
-    </div>
+        </section>
+
+        <!-- Cheat Menu Section -->
+        <section id="cheat-menu" class="section">
+            <div class="container">
+                <h2>Interactive Controls</h2>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <label>Particles: <span id="particleCount">50</span></label>
+                        <input type="range" id="particleSlider" min="10" max="200" value="50">
+                    </div>
+                    <div class="control-group">
+                        <button class="btn" id="toggleParticles">Toggle Particles</button>
+                        <button class="btn" id="resetBtn">Reset</button>
+                    </div>
+                </div>
+                <div class="preview-canvas" id="previewCanvas">
+                    <!-- Canvas for particles -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 T.H Portfolio</p>
+        </div>
+    </footer>
 
     <!-- JavaScript -->
-    <script src="script.js" defer></script>
-    
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "T.H Interactive Portfolio",
-        "url": "https://trojanhorseth.github.io/T.H/",
-        "description": "Modern interactive portfolio featuring creative web development and design projects",
-        "author": {
-            "@type": "Person",
-            "name": "TrojanHorseTH"
-        },
-        "keywords": "web development, portfolio, creative coding, interactive design"
-    }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrojanHorse T.H | Advanced Enhancement Suite</title>
+    <title>TrojanHorse T.H</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,1106 +12,326 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-black: #000000;
-            --secondary-black: #1a1a1a;
-            --primary-white: #ffffff;
-            --secondary-white: #f5f5f5;
-            --accent: #ff3366;
-            --gray-dark: #333333;
-            --gray-medium: #666666;
-            --gray-light: #999999;
-            --border-color: rgba(0, 0, 0, 0.08);
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--primary-white);
-            color: var(--primary-black);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* Leaf animation background - black & white version */
-        #leaf-background {
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00ff88;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #00cc66;
+        }
+
+        /* Preview Container - ACTUAL PNG with 3D effect */
+        .preview-container {
+            flex: 1;
+            height: 400px;
+            perspective: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-box {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .preview-front, .preview-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #333;
+            background: #111;
+        }
+
+        .preview-back {
+            transform: rotateY(180deg);
+            background: #151515;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .preview-back p {
+            color: #aaa;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature {
+            background: #151515;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Leaf Animation */
+        .leaves {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
             pointer-events: none;
-            overflow: hidden;
+            z-index: -1;
         }
 
         .leaf {
             position: absolute;
-            width: 24px;
-            height: 24px;
-            opacity: 0.4;
-            pointer-events: none;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-            border-radius: 50% 0 50% 0;
-            background-color: var(--primary-black);
+            width: 20px;
+            height: 20px;
+            background: #00ff88;
+            opacity: 0.3;
+            border-radius: 50% 0;
+            animation: fall linear infinite;
         }
 
-        .leaf:nth-child(3n) {
-            background-color: var(--gray-dark);
-            border-radius: 0 50% 0 50%;
-        }
-
-        .leaf:nth-child(5n) {
-            background-color: var(--gray-medium);
-            border-radius: 40% 60% 70% 30%;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-black);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--primary-white);
-        }
-
-        .logo-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 900;
-            font-size: 1.6rem;
-            color: var(--primary-black);
-            letter-spacing: -0.5px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
-        nav a {
-            color: var(--gray-dark);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        nav a:hover {
-            color: var(--primary-black);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-black);
-            transition: width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            background: var(--primary-black);
-            color: var(--primary-white);
-            padding: 0.7rem 1.8rem;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-left: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .nav-cta:hover {
-            background: var(--gray-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Hero Section with 3D Preview */
-        .hero-section {
-            padding: 10rem 5% 8rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .hero-content h1 {
-            font-size: 3.8rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--primary-black);
-        }
-
-        .hero-content h1 span {
-            color: var(--accent);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            color: var(--gray-dark);
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-black);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--gray-medium);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 0.5rem;
-        }
-
-        /* 3D Preview Container - Stationary Hero Element */
-        .preview-hero-container {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 1000px;
-        }
-
-        .preview-hero {
-            width: 450px;
-            height: 500px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.1s;
-        }
-
-        .preview-box {
-            width: 100%;
-            height: 100%;
-            background: var(--secondary-white);
-            border-radius: 16px;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border: 1px solid var(--border-color);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .file-header {
-            background: var(--primary-black);
-            padding: 1.2rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .file-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--primary-white);
-            letter-spacing: 0.5px;
-        }
-
-        .file-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--accent);
-            animation: pulse 2s infinite;
-        }
-
-        .file-content {
-            flex: 1;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #f9f9f9, #f0f0f0);
-        }
-
-        .file-preview {
-            width: 360px;
-            height: 270px;
-            background: var(--primary-white);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed var(--border-color);
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
-        }
-
-        .file-preview i {
-            font-size: 4rem;
-            color: var(--gray-light);
-            margin-bottom: 1.5rem;
-        }
-
-        .file-name {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            color: var(--gray-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .file-info {
-            color: var(--gray-medium);
-            font-size: 0.9rem;
-            text-align: center;
-            max-width: 300px;
-        }
-
-        .file-footer {
-            padding: 1.2rem 1.5rem;
-            background: var(--secondary-white);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .file-meta {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--gray-medium);
-        }
-
-        .file-size {
-            font-size: 0.9rem;
-            color: var(--gray-dark);
-            font-weight: 600;
-        }
-
-        /* 3D shadow effect */
-        .preview-shadow {
-            position: absolute;
-            width: 85%;
-            height: 50px;
-            bottom: -30px;
-            left: 7.5%;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            filter: blur(15px);
-            z-index: -1;
-        }
-
-        /* Features section */
-        .features {
-            padding: 6rem 5%;
-            background: var(--secondary-white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 5rem;
-        }
-
-        .section-subtitle {
-            font-size: 1rem;
-            color: var(--gray-medium);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--primary-black);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: var(--primary-white);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-black);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary-black);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.8rem;
-        }
-
-        .feature-icon i {
-            font-size: 1.8rem;
-            color: var(--primary-white);
-        }
-
-        .feature-card h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--primary-black);
-        }
-
-        .feature-card p {
-            color: var(--gray-dark);
-            line-height: 1.7;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 8rem 5%;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            background: var(--primary-white);
-        }
-
-        .cta-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-title {
-            font-size: 3.2rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--primary-black);
-        }
-
-        .cta-description {
-            font-size: 1.2rem;
-            color: var(--gray-dark);
-            line-height: 1.7;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            background: var(--primary-black);
-            color: var(--primary-white);
-            padding: 1.3rem 3.5rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background: var(--gray-dark);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
         }
 
         /* Footer */
         footer {
-            background: var(--secondary-black);
-            padding: 5rem 5% 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto 3rem;
-        }
-
-        .footer-column h4 {
-            font-size: 1.2rem;
-            margin-bottom: 1.8rem;
-            color: var(--primary-white);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: var(--gray-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-white);
-        }
-
-        .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray-light);
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #333;
+            color: #666;
             font-size: 0.9rem;
         }
 
-        .disclaimer {
-            max-width: 800px;
-            margin: 2rem auto 0;
-            font-size: 0.8rem;
-            color: var(--gray-medium);
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
         /* Responsive */
-        @media (max-width: 1200px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding-top: 8rem;
-            }
-            
-            .hero-stats {
-                justify-content: center;
-            }
-            
-            .preview-hero-container {
-                order: -1;
-                height: 450px;
-                margin-bottom: 3rem;
-            }
-            
-            .preview-hero {
-                width: 400px;
-                height: 450px;
-            }
-        }
-
         @media (max-width: 768px) {
-            header {
+            .hero {
                 flex-direction: column;
-                gap: 1rem;
-                padding: 1rem 5%;
             }
             
-            nav ul {
-                gap: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
+            .preview-container {
+                width: 100%;
             }
             
-            .nav-cta {
-                margin-left: 0;
-                margin-top: 0.5rem;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            
-            .section-title {
-                font-size: 2.4rem;
-            }
-            
-            .cta-title {
-                font-size: 2.4rem;
-            }
-            
-            .preview-hero {
-                width: 350px;
-                height: 420px;
-            }
-            
-            .file-preview {
-                width: 300px;
-                height: 225px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .preview-hero {
-                width: 300px;
-                height: 380px;
-            }
-            
-            .file-preview {
-                width: 260px;
-                height: 195px;
+            h1 {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Leaf animation background -->
-    <div id="leaf-background"></div>
-
     <!-- Header -->
     <header>
-        <div class="logo-container">
-            <div class="logo-icon">TH</div>
-            <div class="logo-text">TROJANHORSE</div>
-        </div>
+        <div class="logo">Trojan<span>Horse</span> T.H</div>
         <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#support">Support</a></li>
-                <li><a href="#download" class="nav-cta">Download</a></li>
-            </ul>
+            <a href="#features">Features</a>
+            <a href="#download">Download</a>
+            <a href="#support">Support</a>
         </nav>
     </header>
 
-    <!-- Hero Section with 3D Preview -->
-    <section class="hero-section" id="home">
-        <div class="hero-content">
-            <h1>Advanced <span>Enhancement</span> Technology</h1>
-            <p>TrojanHorse T.H redefines game enhancement with proprietary algorithms and unparalleled performance. Experience next-generation technology with precision and discretion.</p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-value">99.9%</div>
-                    <div class="stat-label">Undetectable</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">18ms</div>
-                    <div class="stat-label">Response Time</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">3.1M</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
+    <!-- Leaves Background -->
+    <div class="leaves" id="leaves"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Game Enhancement Suite</h1>
+                <p class="subtitle">Advanced tools for competitive gaming. TrojanHorse T.H provides the edge you need with precision and discretion.</p>
+                <a href="#download" class="btn">Download Now</a>
             </div>
-        </div>
-        
-        <!-- 3D Preview Hero -->
-        <div class="preview-hero-container">
-            <div class="preview-hero" id="previewHero">
-                <div class="preview-box">
-                    <div class="file-header">
-                        <div class="file-title">cheat-preview.png</div>
-                        <div class="file-status">
-                            <div class="status-dot"></div>
-                            <span style="color: #fff; font-size: 0.8rem;">ACTIVE</span>
-                        </div>
+            
+            <!-- ACTUAL 3D PNG Preview -->
+            <div class="preview-container">
+                <div class="preview-box" id="previewBox">
+                    <div class="preview-front">
+                        <!-- Using an actual cheat menu PNG from a placeholder service -->
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cheat Preview" class="preview-img">
                     </div>
-                    <div class="file-content">
-                        <div class="file-preview">
-                            <i class="fas fa-file-image"></i>
-                            <div class="file-name">cheat-preview.png</div>
-                            <div class="file-info">Interactive 3D Preview • Move cursor to rotate</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="color: var(--gray-dark); font-size: 0.9rem; margin-bottom: 0.5rem;">Preview Features:</div>
-                            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;">
-                                <span style="background: var(--primary-black); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">Aimbot</span>
-                                <span style="background: var(--primary-black); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">ESP</span>
-                                <span style="background: var(--primary-black); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">Wallhack</span>
-                                <span style="background: var(--accent); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">Stealth</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-footer">
-                        <div class="file-meta">ULTRA EDITION • v2.9.3</div>
-                        <div class="file-size">4.2 MB</div>
+                    <div class="preview-back">
+                        <p>cheat-preview.png<br>3D Interactive Preview<br>Move mouse to rotate</p>
                     </div>
                 </div>
             </div>
-            <div class="preview-shadow" id="previewShadow"></div>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="section-header">
-            <div class="section-subtitle">Core Technology</div>
-            <h2 class="section-title">Unparalleled Performance</h2>
-            <p style="color: var(--gray-dark); max-width: 600px; margin: 0 auto;">Our proprietary engine delivers performance that redefines what's possible in game enhancement.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3>Neural Aimbot</h3>
-                <p>Advanced neural networks analyze gameplay patterns to deliver human-like aiming that adapts to your playstyle and appears completely natural.</p>
+        <!-- Features -->
+        <div class="features" id="features">
+            <div class="feature">
+                <i class="fas fa-crosshairs"></i>
+                <h3>Precision Aimbot</h3>
+                <p>Advanced targeting algorithms for maximum accuracy.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h3>Environmental ESP</h3>
-                <p>Comprehensive environmental sensing with customizable overlays for maximum situational awareness without visual clutter.</p>
+            <div class="feature">
+                <i class="fas fa-eye"></i>
+                <h3>ESP System</h3>
+                <p>See through walls and track enemy movements.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-user-secret"></i>
-                </div>
-                <h3>Stealth Protocol</h3>
-                <p>Proprietary bypass methods ensure complete anonymity and protection against even the most advanced detection systems.</p>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Stealth Mode</h3>
+                <p>Undetectable operation with anti-cheat bypass.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="download">
-        <div class="cta-container">
-            <h2 class="cta-title">Experience Next-Generation Enhancement</h2>
-            <p class="cta-description">Join millions of competitive gamers who trust TrojanHorse T.H for unparalleled performance and discretion. Download now and elevate your gameplay.</p>
-            <a href="#" class="cta-button" id="downloadButton">
-                <i class="fas fa-download"></i>
-                Download TrojanHorse T.H
-            </a>
-            <div style="margin-top: 2rem; color: var(--gray-medium); font-size: 0.9rem;">
-                <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i>
-                Secure installation • 30-day guarantee • Regular updates
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h4>TrojanHorse T.H</h4>
-                <ul class="footer-links">
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#technology">Technology</a></li>
-                    <li><a href="#careers">Careers</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Products</h4>
-                <ul class="footer-links">
-                    <li><a href="#standard">Standard Edition</a></li>
-                    <li><a href="#pro">Professional</a></li>
-                    <li><a href="#ultra">Ultra Edition</a></li>
-                    <li><a href="#enterprise">Enterprise</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Support</h4>
-                <ul class="footer-links">
-                    <li><a href="#docs">Documentation</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#tutorials">Tutorials</a></li>
-                    <li><a href="#forum">Community</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Legal</h4>
-                <ul class="footer-links">
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                    <li><a href="#terms">Terms of Service</a></li>
-                    <li><a href="#cookies">Cookie Policy</a></li>
-                    <li><a href="#compliance">Compliance</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 TrojanHorse Technologies. All rights reserved.</p>
-            <p class="disclaimer">This website is a demonstration only. TrojanHorse T.H is fictional software created for design purposes. Cheating in online games violates terms of service and may result in account suspension or banning.</p>
-        </div>
+        TrojanHorse T.H &copy; 2023 - For demonstration purposes only
     </footer>
 
     <script>
-        // Create falling leaves
+        // Create leaves
         function createLeaves() {
-            const leafContainer = document.getElementById('leaf-background');
-            const leafCount = 25;
-            
-            for (let i = 0; i < leafCount; i++) {
+            const leaves = document.getElementById('leaves');
+            for (let i = 0; i < 15; i++) {
                 const leaf = document.createElement('div');
-                leaf.classList.add('leaf');
-                
-                // Random properties
-                const size = Math.random() * 20 + 10;
-                const startX = Math.random() * 100;
-                const duration = Math.random() * 20 + 20;
-                const delay = Math.random() * 15;
-                const rotation = Math.random() * 360;
-                
-                leaf.style.width = `${size}px`;
-                leaf.style.height = `${size}px`;
-                leaf.style.left = `${startX}vw`;
-                leaf.style.transform = `rotate(${rotation}deg)`;
-                leaf.style.animation = `fall ${duration}s linear ${delay}s infinite`;
-                
-                leafContainer.appendChild(leaf);
+                leaf.className = 'leaf';
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                leaf.style.animationDelay = Math.random() * 5 + 's';
+                leaf.style.opacity = Math.random() * 0.5 + 0.1;
+                leaf.style.width = leaf.style.height = (Math.random() * 15 + 10) + 'px';
+                leaves.appendChild(leaf);
             }
-            
-            // Add CSS for falling animation
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes fall {
-                    0% {
-                        transform: translateY(-100px) rotate(0deg);
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 0.6;
-                    }
-                    90% {
-                        opacity: 0.3;
-                    }
-                    100% {
-                        transform: translateY(100vh) rotate(360deg);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
         }
+
+        // 3D Rotation for preview box
+        const previewBox = document.getElementById('previewBox');
+        let mouseX = 0;
+        let mouseY = 0;
         
-        // 3D Rotation for Preview Hero
-        document.addEventListener('DOMContentLoaded', function() {
-            createLeaves();
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = (e.clientY / window.innerHeight) * 2 - 1;
             
-            const previewHero = document.getElementById('previewHero');
-            const previewShadow = document.getElementById('previewShadow');
-            let mouseX = 0;
-            let mouseY = 0;
-            let centerX = window.innerWidth / 2;
-            let centerY = window.innerHeight / 2;
+            // Apply rotation based on mouse position
+            const rotateY = mouseX * 20; // Max 20 degrees rotation on Y axis
+            const rotateX = -mouseY * 15; // Max 15 degrees rotation on X axis
             
-            // Update center on resize
-            window.addEventListener('resize', () => {
-                centerX = window.innerWidth / 2;
-                centerY = window.innerHeight / 2;
-            });
-            
-            // Track mouse movement for 3D rotation
-            document.addEventListener('mousemove', function(e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                // Calculate rotation based on mouse position relative to center
-                const rotateY = ((mouseX - centerX) / centerX) * 15; // Max 15 degrees
-                const rotateX = -((mouseY - centerY) / centerY) * 10; // Max 10 degrees
-                
-                // Apply 3D transform
-                previewHero.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-                
-                // Adjust shadow based on rotation
-                const shadowSize = 85 + Math.abs(rotateY) * 0.5;
-                const shadowOpacity = 0.1 + Math.abs(rotateY) * 0.005;
-                
-                previewShadow.style.width = `${shadowSize}%`;
-                previewShadow.style.left = `${(100 - shadowSize) / 2}%`;
-                previewShadow.style.opacity = shadowOpacity;
-            });
-            
-            // Add subtle floating animation
-            let floatOffset = 0;
-            function floatAnimation() {
-                floatOffset += 0.01;
-                const floatY = Math.sin(floatOffset) * 5;
-                previewHero.style.transform += ` translateY(${floatY}px)`;
-                requestAnimationFrame(floatAnimation);
-            }
-            
-            // Start floating animation
-            floatAnimation();
-            
-            // Download button interaction
-            const downloadButton = document.getElementById('downloadButton');
-            downloadButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Create download modal
-                const modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100%';
-                modal.style.height = '100%';
-                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-                modal.style.display = 'flex';
-                modal.style.alignItems = 'center';
-                modal.style.justifyContent = 'center';
-                modal.style.zIndex = '9998';
-                modal.style.backdropFilter = 'blur(10px)';
-                
-                modal.innerHTML = `
-                    <div style="background: white; padding: 3rem; border-radius: 16px; max-width: 500px; width: 90%; border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: #000;">Select Edition</h3>
-                        <p style="color: #666; margin-bottom: 2rem; line-height: 1.6;">Choose your TrojanHorse T.H edition. Your download will start immediately.</p>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #f5f5f5; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s;" 
-                                 onmouseover="this.style.borderColor='#000'; this.style.backgroundColor='#f0f0f0'" 
-                                 onmouseout="this.style.borderColor='rgba(0, 0, 0, 0.1)'; this.style.backgroundColor='#f5f5f5'"
-                                 onclick="selectEdition('standard')">
-                                <div>
-                                    <h4 style="color: #000; margin-bottom: 0.3rem;">Standard Edition</h4>
-                                    <p style="color: #666; font-size: 0.9rem;">Basic features for casual gaming</p>
-                                </div>
-                                <div style="font-weight: 700; color: #000;">Free</div>
-                            </div>
-                            
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #f5f5f5; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s;" 
-                                 onmouseover="this.style.borderColor='#000'; this.style.backgroundColor='#f0f0f0'" 
-                                 onmouseout="this.style.borderColor='rgba(0, 0, 0, 0.1)'; this.style.backgroundColor='#f5f5f5'"
-                                 onclick="selectEdition('pro')">
-                                <div>
-                                    <h4 style="color: #000; margin-bottom: 0.3rem;">Professional</h4>
-                                    <p style="color: #666; font-size: 0.9rem;">Advanced features for competitive play</p>
-                                </div>
-                                <div style="font-weight: 700; color: #000;">$24.99/mo</div>
-                            </div>
-                            
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #000; border-radius: 8px; border: 1px solid #000; cursor: pointer; transition: all 0.3s;" 
-                                 onmouseover="this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.2)'" 
-                                 onmouseout="this.style.boxShadow='none'"
-                                 onclick="selectEdition('ultra')">
-                                <div>
-                                    <h4 style="color: #fff; margin-bottom: 0.3rem;">Ultra Edition</h4>
-                                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">All features + premium support</p>
-                                </div>
-                                <div style="font-weight: 700; color: #fff;">$49.99/mo</div>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; gap: 1rem;">
-                            <button onclick="this.parentElement.parentElement.remove();" style="flex: 1; padding: 1rem; background: transparent; border: 1px solid rgba(0, 0, 0, 0.2); color: #666; border-radius: 8px; cursor: pointer; transition: all 0.3s;">Cancel</button>
-                            <button onclick="startDownload(); this.parentElement.parentElement.remove();" style="flex: 1; padding: 1rem; background: #000; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s;">Download Selected</button>
-                        </div>
-                    </div>
-                `;
-                
-                document.body.appendChild(modal);
-                
-                // Close modal on background click
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        modal.remove();
-                    }
-                });
-            });
-            
-            // Select edition function
-            window.selectEdition = function(edition) {
-                // Reset all options
-                const options = document.querySelectorAll('[onclick^="selectEdition"]');
-                options.forEach(option => {
-                    option.style.background = '#f5f5f5';
-                    option.style.borderColor = 'rgba(0, 0, 0, 0.1)';
-                    option.querySelector('h4').style.color = '#000';
-                    option.querySelector('p').style.color = '#666';
-                    const price = option.querySelector('div:nth-child(2)');
-                    if (price) price.style.color = '#000';
-                });
-                
-                // Highlight selected
-                const selectedOption = event.currentTarget;
-                selectedOption.style.background = '#000';
-                selectedOption.style.borderColor = '#000';
-                selectedOption.querySelector('h4').style.color = '#fff';
-                selectedOption.querySelector('p').style.color = 'rgba(255, 255, 255, 0.8)';
-                const selectedPrice = selectedOption.querySelector('div:nth-child(2)');
-                if (selectedPrice) selectedPrice.style.color = '#fff';
-            };
-            
-            // Start download function
-            window.startDownload = function() {
-                // Show download notification
-                const notification = document.createElement('div');
-                notification.style.position = 'fixed';
-                notification.style.bottom = '30px';
-                notification.style.right = '30px';
-                notification.style.backgroundColor = '#000';
-                notification.style.color = '#fff';
-                notification.style.padding = '1.5rem 2rem';
-                notification.style.borderRadius = '12px';
-                notification.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-                notification.style.zIndex = '9999';
-                notification.style.maxWidth = '350px';
-                notification.style.display = 'flex';
-                notification.style.alignItems = 'center';
-                notification.style.gap = '1rem';
-                notification.style.transform = 'translateY(100px)';
-                notification.style.opacity = '0';
-                notification.style.transition = 'all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)';
-                
-                notification.innerHTML = `
-                    <div style="width: 40px; height: 40px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-download" style="color: #000; font-size: 1.2rem;"></i>
-                    </div>
-                    <div>
-                        <h4 style="margin-bottom: 0.3rem; font-size: 1rem;">Downloading TrojanHorse T.H</h4>
-                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">trojanhorse-ultra-v2.9.3.exe • 4.2 MB</p>
-                        <div style="background: rgba(255, 255, 255, 0.2); height: 4px; border-radius: 2px; margin-top: 0.8rem; overflow: hidden;">
-                            <div id="downloadProgressBar" style="width: 0%; height: 100%; background: #fff; transition: width 0.5s;"></div>
-                        </div>
-                    </div>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Animate in
-                setTimeout(() => {
-                    notification.style.transform = 'translateY(0)';
-                    notification.style.opacity = '1';
-                }, 100);
-                
-                // Simulate download progress
-                let progress = 0;
-                const progressBar = document.getElementById('downloadProgressBar');
-                const interval = setInterval(() => {
-                    progress += Math.random() * 15;
-                    if (progress >= 100) {
-                        progress = 100;
-                        clearInterval(interval);
-                        
-                        // Update notification when complete
-                        setTimeout(() => {
-                            notification.innerHTML = `
-                                <div style="width: 40px; height: 40px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-check" style="color: #000; font-size: 1.2rem;"></i>
-                                </div>
-                                <div>
-                                    <h4 style="margin-bottom: 0.3rem; font-size: 1rem;">Download Complete</h4>
-                                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Check your downloads folder to install</p>
-                                </div>
-                            `;
-                            
-                            // Remove after 5 seconds
-                            setTimeout(() => {
-                                notification.style.transform = 'translateY(100px)';
-                                notification.style.opacity = '0';
-                                setTimeout(() => {
-                                    notification.remove();
-                                }, 500);
-                            }, 5000);
-                        }, 500);
-                    }
-                    
-                    progressBar.style.width = `${progress}%`;
-                }, 200);
-            };
-            
-            // Smooth scroll for navigation
-            document.querySelectorAll('nav a, .footer-links a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href').startsWith('#')) {
-                        e.preventDefault();
-                        
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 100,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
-            });
+            previewBox.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
         });
+
+        // Download button
+        document.querySelector('.btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('This is a demonstration. No actual software will be downloaded.');
+        });
+
+        // Initialize
+        createLeaves();
     </script>
 </body>
 </html>

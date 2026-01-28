@@ -1,348 +1,348 @@
-// Wait for DOM to load
+// Enhanced Particle System for Cyberpunk Terminal
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Website loaded successfully');
+    console.log('T.H Terminal Initialized');
     
-    // Theme Toggle
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('light-theme');
-            const icon = this.querySelector('i');
-            if (document.body.classList.contains('light-theme')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-            
-            // Save theme preference
-            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
-        });
+    // Canvas Setup
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Particle System
+    class Particle {
+        constructor() {
+            this.reset();
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.originalX = this.x;
+            this.originalY = this.y;
+        }
         
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-theme');
-            themeToggle.querySelector('i').classList.remove('fa-moon');
-            themeToggle.querySelector('i').classList.add('fa-sun');
+        reset() {
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.color = Math.random() > 0.5 ? '#00ff9d' : '#00b8ff';
+            this.opacity = Math.random() * 0.5 + 0.3;
+            this.waveOffset = Math.random() * Math.PI * 2;
+            this.waveAmplitude = Math.random() * 2 + 1;
+            this.waveFrequency = Math.random() * 0.02 + 0.01;
+            this.pulseSpeed = Math.random() * 0.05 + 0.02;
+            this.pulseOffset = Math.random() * Math.PI * 2;
+        }
+        
+        update(time) {
+            // Gentle floating motion with wave pattern
+            this.x = this.originalX + Math.sin(time * this.waveFrequency + this.waveOffset) * this.waveAmplitude;
+            this.y = this.originalY + Math.cos(time * this.waveFrequency + this.waveOffset) * this.waveAmplitude;
+            
+            // Add drift
+            this.x += this.speedX;
+            this.y += this.speedY;
+            
+            // Wrap around edges
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+            
+            // Pulsing opacity
+            this.opacity = 0.3 + Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.2;
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = this.opacity;
+            
+            // Particle with glow
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = this.color;
+            ctx.fillStyle = this.color;
+            
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Inner highlight
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(this.x - this.size * 0.3, this.y - this.size * 0.3, this.size * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.restore();
         }
     }
     
-    // Navigation active state
+    // Initialize particles
+    const particles = [];
+    const particleCount = 250;
+    
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+    
+    // Performance monitoring
+    let fps = 60;
+    let frameCount = 0;
+    let lastTime = performance.now();
+    
+    // Animation loop
+    let animationId;
+    let particlesEnabled = true;
+    
+    function animate(currentTime) {
+        animationId = requestAnimationFrame(animate);
+        
+        // Calculate FPS
+        frameCount++;
+        if (currentTime - lastTime >= 1000) {
+            fps = frameCount;
+            frameCount = 0;
+            lastTime = currentTime;
+            updateStats();
+        }
+        
+        // Clear with fade effect for trails
+        ctx.fillStyle = 'rgba(10, 10, 18, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        if (!particlesEnabled) return;
+        
+        const time = currentTime * 0.001; // Convert to seconds
+        
+        // Update and draw particles
+        particles.forEach(particle => {
+            particle.update(time);
+            particle.draw();
+        });
+        
+        // Draw connections between nearby particles
+        drawConnections();
+    }
+    
+    function drawConnections() {
+        ctx.strokeStyle = 'rgba(0, 255, 157, 0.1)';
+        ctx.lineWidth = 1;
+        
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 100) {
+                    // Adjust opacity based on distance
+                    const opacity = 0.1 * (1 - distance / 100);
+                    ctx.strokeStyle = `rgba(0, 255, 157, ${opacity})`;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    
+    function updateStats() {
+        const fpsCounter = document.getElementById('fpsCounter');
+        const particleCountElement = document.getElementById('particleCount');
+        const systemLoad = document.getElementById('systemLoad');
+        
+        if (fpsCounter) fpsCounter.textContent = fps;
+        if (particleCountElement) particleCountElement.textContent = particles.length;
+        if (systemLoad) {
+            const load = Math.floor(Math.random() * 10 + 10); // Simulated load
+            systemLoad.textContent = `${load}%`;
+        }
+    }
+    
+    // Start animation
+    animate(performance.now());
+    
+    // UI Interactions
+    const toggleMatrixBtn = document.getElementById('toggleMatrix');
+    const particleToggle = document.getElementById('particleToggle');
+    const launchCheatBtn = document.getElementById('launchCheat');
+    const viewProjectsBtn = document.getElementById('viewProjects');
+    
+    // Toggle Matrix Button
+    if (toggleMatrixBtn) {
+        toggleMatrixBtn.addEventListener('click', function() {
+            particlesEnabled = !particlesEnabled;
+            this.classList.toggle('active');
+            
+            if (particlesEnabled) {
+                this.querySelector('.btn-text').textContent = 'TOGGLE_MATRIX';
+                particles.forEach(p => p.reset());
+            } else {
+                this.querySelector('.btn-text').textContent = 'ENABLE_MATRIX';
+            }
+        });
+    }
+    
+    // Particle Toggle Switch
+    if (particleToggle) {
+        particleToggle.addEventListener('change', function() {
+            particlesEnabled = this.checked;
+        });
+    }
+    
+    // Launch Cheat Menu
+    if (launchCheatBtn) {
+        launchCheatBtn.addEventListener('click', function() {
+            window.location.href = 'cheat-menu.html';
+        });
+    }
+    
+    // View Projects
+    if (viewProjectsBtn) {
+        viewProjectsBtn.addEventListener('click', function() {
+            document.querySelector('[data-tab="projects"]').click();
+        });
+    }
+    
+    // Tab Navigation
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update active state
             navLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
             
-            // Smooth scroll
-            const targetId = this.getAttribute('href');
-            if (targetId.startsWith('#')) {
-                e.preventDefault();
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
+            const tab = this.dataset.tab;
+            
+            // Handle different tabs
+            switch(tab) {
+                case 'cheat':
+                    window.location.href = 'cheat-menu.html';
+                    break;
+                case 'projects':
+                    showTab('projects');
+                    break;
+                case 'about':
+                    showTab('about');
+                    break;
+                default:
+                    showTab('main');
             }
         });
     });
     
-    // Particle System
-    const particleSlider = document.getElementById('particleSlider');
-    const particleCount = document.getElementById('particleCount');
-    const toggleParticlesBtn = document.getElementById('toggleParticles');
-    const resetBtn = document.getElementById('resetBtn');
-    const previewCanvas = document.getElementById('previewCanvas');
+    function showTab(tabName) {
+        // Hide all tabs
+        const tabs = document.querySelectorAll('.welcome-section');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        
+        // Show selected tab
+        const activeTab = document.getElementById(`${tabName}-tab`);
+        if (activeTab) activeTab.classList.add('active');
+    }
     
-    let particles = [];
-    let animationId = null;
-    let particlesEnabled = true;
+    // Terminal Input
+    const terminalInput = document.getElementById('terminalInput');
+    const executeBtn = document.getElementById('executeBtn');
     
-    if (previewCanvas && particleSlider && particleCount) {
-        // Setup canvas
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        previewCanvas.appendChild(canvas);
-        
-        // Set canvas size
-        function resizeCanvas() {
-            canvas.width = previewCanvas.clientWidth;
-            canvas.height = previewCanvas.clientHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        // Particle class
-        class Particle {
-            constructor() {
-                this.reset();
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+    if (terminalInput && executeBtn) {
+        terminalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand();
             }
-            
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-                this.color = `rgba(99, 102, 241, ${Math.random() * 0.5 + 0.3})`;
-                this.opacity = 1;
-            }
-            
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                // Bounce off edges
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-                
-                // Fade in/out effect
-                this.opacity += 0.02;
-                if (this.opacity >= 1) this.opacity = 1;
-            }
-            
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // Glow effect
-                ctx.shadowColor = this.color;
-                ctx.shadowBlur = 10;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-        
-        // Initialize particles
-        function initParticles(count) {
-            particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
-        }
-        
-        // Animation loop
-        function animateParticles() {
-            if (!particlesEnabled) return;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw connecting lines
-            ctx.strokeStyle = 'rgba(99, 102, 241, 0.1)';
-            ctx.lineWidth = 1;
-            
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            
-            // Update and draw particles
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            
-            animationId = requestAnimationFrame(animateParticles);
-        }
-        
-        // Start with initial particles
-        initParticles(parseInt(particleSlider.value));
-        animateParticles();
-        
-        // Update particle count
-        particleSlider.addEventListener('input', function() {
-            const count = parseInt(this.value);
-            particleCount.textContent = count;
-            initParticles(count);
         });
         
-        // Toggle particles
-        if (toggleParticlesBtn) {
-            toggleParticlesBtn.addEventListener('click', function() {
-                particlesEnabled = !particlesEnabled;
-                this.textContent = particlesEnabled ? 'Hide Particles' : 'Show Particles';
-                
-                if (particlesEnabled) {
-                    animateParticles();
-                } else {
-                    cancelAnimationFrame(animationId);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                }
-            });
-        }
+        executeBtn.addEventListener('click', executeCommand);
+    }
+    
+    function executeCommand() {
+        const command = terminalInput.value.trim().toLowerCase();
+        terminalInput.value = '';
         
-        // Reset button
-        if (resetBtn) {
-            resetBtn.addEventListener('click', function() {
-                particleSlider.value = 50;
-                particleCount.textContent = '50';
+        switch(command) {
+            case 'help':
+                alert('Available commands:\n- clear\n- particles [on/off]\n- fps\n- about\n- projects\n- github');
+                break;
+            case 'clear':
+                particles.length = 0;
+                break;
+            case 'particles on':
                 particlesEnabled = true;
-                if (toggleParticlesBtn) {
-                    toggleParticlesBtn.textContent = 'Hide Particles';
+                particleToggle.checked = true;
+                break;
+            case 'particles off':
+                particlesEnabled = false;
+                particleToggle.checked = false;
+                break;
+            case 'fps':
+                alert(`Current FPS: ${fps}`);
+                break;
+            case 'about':
+                document.querySelector('[data-tab="about"]').click();
+                break;
+            case 'projects':
+                document.querySelector('[data-tab="projects"]').click();
+                break;
+            case 'github':
+                window.open('https://github.com/TrojanHorseTH', '_blank');
+                break;
+            default:
+                if (command) {
+                    alert(`Unknown command: ${command}\nType 'help' for available commands.`);
                 }
-                initParticles(50);
-            });
         }
     }
     
-    // Particle demo button
-    const particleDemoBtn = document.getElementById('particleDemo');
-    if (particleDemoBtn) {
-        particleDemoBtn.addEventListener('click', function() {
-            // Create fullscreen particle demo
-            const demo = document.createElement('div');
-            demo.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.9);
-                z-index: 9999;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            const closeBtn = document.createElement('button');
-            closeBtn.textContent = 'Close Demo';
-            closeBtn.className = 'btn btn-primary';
-            closeBtn.style.marginTop = '20px';
-            
-            const demoCanvas = document.createElement('canvas');
-            demo.style.zIndex = '10000';
-            
-            demo.appendChild(demoCanvas);
-            demo.appendChild(closeBtn);
-            document.body.appendChild(demo);
-            
-            // Setup demo canvas
-            const demoCtx = demoCanvas.getContext('2d');
-            demoCanvas.width = window.innerWidth;
-            demoCanvas.height = window.innerHeight;
-            
-            // Demo particles
-            const demoParticles = [];
-            for (let i = 0; i < 200; i++) {
-                demoParticles.push({
-                    x: Math.random() * demoCanvas.width,
-                    y: Math.random() * demoCanvas.height,
-                    size: Math.random() * 4 + 1,
-                    speedX: Math.random() * 3 - 1.5,
-                    speedY: Math.random() * 3 - 1.5,
-                    color: `hsl(${Math.random() * 360}, 100%, 70%)`
-                });
-            }
-            
-            // Demo animation
-            function animateDemo() {
-                demoCtx.clearRect(0, 0, demoCanvas.width, demoCanvas.height);
-                
-                demoParticles.forEach(p => {
-                    p.x += p.speedX;
-                    p.y += p.speedY;
-                    
-                    if (p.x > demoCanvas.width || p.x < 0) p.speedX *= -1;
-                    if (p.y > demoCanvas.height || p.y < 0) p.speedY *= -1;
-                    
-                    demoCtx.fillStyle = p.color;
-                    demoCtx.beginPath();
-                    demoCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    demoCtx.fill();
-                    
-                    // Glow
-                    demoCtx.shadowColor = p.color;
-                    demoCtx.shadowBlur = 15;
-                    demoCtx.beginPath();
-                    demoCtx.arc(p.x, p.y, p.size * 2, 0, Math.PI * 2);
-                    demoCtx.fill();
-                    demoCtx.shadowBlur = 0;
-                });
-                
-                requestAnimationFrame(animateDemo);
-            }
-            
-            animateDemo();
-            
-            // Close demo
-            closeBtn.addEventListener('click', function() {
-                document.body.removeChild(demo);
-            });
-            
-            // Close on escape
-            document.addEventListener('keydown', function closeOnEscape(e) {
-                if (e.key === 'Escape') {
-                    document.body.removeChild(demo);
-                    document.removeEventListener('keydown', closeOnEscape);
-                }
-            });
-        });
-    }
+    // Cursor Effect
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
     
-    // Add scroll effect to navbar
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(26, 26, 46, 0.95)';
-            navbar.style.backdropFilter = 'blur(15px)';
-        } else {
-            navbar.style.background = 'rgba(26, 26, 46, 0.9)';
-            navbar.style.backdropFilter = 'blur(10px)';
+    document.addEventListener('mousemove', function(e) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Add CSS for cursor
+    const cursorStyle = document.createElement('style');
+    cursorStyle.textContent = `
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff9d;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
         }
-    });
-    
-    // Add hover effect to project cards
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
+        .custom-cursor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background: #00ff9d;
+            border-radius: 50%;
+        }
+    `;
+    document.head.appendChild(cursorStyle);
     
-    // Update active nav link on scroll
-    const sections = document.querySelectorAll('section');
-    window.addEventListener('scroll', function() {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
+    // Clean up on page unload
+    window.addEventListener('beforeunload', function() {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+        }
     });
 });

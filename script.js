@@ -74,3 +74,39 @@ document.addEventListener('mousemove', (e) => {
 
   preview.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
 });
+// Debounce scroll/resize events
+function debounce(func, wait = 20, immediate = true) {
+  let timeout;
+  return function() {
+    const context = this, args = arguments;
+    const later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+// Optimize animation frame
+let animationId;
+function optimizedAnimation() {
+  // Use requestAnimationFrame efficiently
+  if (animationId) cancelAnimationFrame(animationId);
+  
+  function animate() {
+    // Your particle animation logic here
+    animationId = requestAnimationFrame(animate);
+  }
+  
+  // Only animate when tab is visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animationId);
+    } else {
+      animate();
+    }
+  });
+}

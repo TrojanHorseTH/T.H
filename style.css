@@ -212,3 +212,23 @@ footer {
   text-align: center;
   color: #666;
 }
+/* Remove render-blocking CSS */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize particle animation */
+.particle {
+  will-change: transform, opacity; /* GPU acceleration */
+  transform: translateZ(0);
+}
+
+/* Image optimization */
+img {
+  content-visibility: auto;
+  loading: lazy; /* Native lazy loading */
+}

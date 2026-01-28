@@ -3,100 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T.H Portfolio</title>
+    <meta name="description" content="Cyberpunk-inspired interactive portfolio with particle animations">
+    <title>T.H | Interactive Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">T.H</a>
-            <div class="nav-links">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#cheat-menu" class="nav-link">Cheat Menu</a>
-                <a href="#about" class="nav-link">About</a>
+    <!-- Particle Canvas Background -->
+    <canvas id="particleCanvas"></canvas>
+    
+    <!-- Main Container -->
+    <div class="terminal-container">
+        <!-- Header -->
+        <header class="cyber-header">
+            <div class="glitch" data-text="T.H_TERMINAL">T.H_TERMINAL</div>
+            <nav class="cyber-nav">
+                <a href="#" class="nav-link active" data-tab="main">MAIN</a>
+                <a href="cheat-menu.html" class="nav-link" data-tab="cheat">CHEAT_MENU</a>
+                <a href="#" class="nav-link" data-tab="projects">PROJECTS</a>
+                <a href="#" class="nav-link" data-tab="about">ABOUT</a>
+            </nav>
+            <div class="status-indicator">
+                <span class="status-dot active"></span>
+                <span class="status-text">SYSTEM_ACTIVE</span>
             </div>
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-    </nav>
+        </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Creative <span class="highlight">Development</span> Portfolio</h1>
-                    <p class="hero-subtitle">Building interactive web experiences with modern technologies</p>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View Projects</a>
-                        <a href="#cheat-menu" class="btn btn-secondary">Try Cheat Menu</a>
+        <!-- Main Content -->
+        <main class="terminal-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section active" id="main-tab">
+                <div class="command-line">
+                    <span class="prompt">user@terminal:~$</span>
+                    <span class="command">welcome --user="visitor"</span>
+                </div>
+                
+                <div class="output-content">
+                    <h1 class="cyber-title">
+                        <span class="title-glitch">TROJAN_HORSE</span>
+                        <span class="title-sub">DEVELOPMENT</span>
+                    </h1>
+                    
+                    <div class="ascii-art">
+                        <pre class="ascii">
+   _____                   _        _   _                         
+  |_   _|__ _ __ _ __ ___ (_) ___  | | | | ___  _ __ ___   ___ 
+    | |/ _ \ '__| '_ ` _ \| |/ __| | |_| |/ _ \| '_ ` _ \ / _ \
+    | |  __/ |  | | | | | | | (__  |  _  | (_) | | | | | |  __/
+    |_|\___|_|  |_| |_| |_|_|\___| |_| |_|\___/|_| |_| |_|\___|
+                        </pre>
+                    </div>
+                    
+                    <div class="bio-text">
+                        <p class="typing-text">> INITIALIZING CYBERSPACE INTERFACE...</p>
+                        <p class="typing-text delay-1">> LOADING PARTICLE MATRIX SYSTEMS...</p>
+                        <p class="typing-text delay-2">> WELCOME TO THE TERMINAL.</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="cyber-btn primary" id="launchCheat">
+                            <span class="btn-text">LAUNCH_CHEAT_MENU</span>
+                            <span class="btn-glow"></span>
+                        </button>
+                        <button class="cyber-btn secondary" id="viewProjects">
+                            <span class="btn-text">VIEW_PROJECTS</span>
+                            <span class="btn-glow"></span>
+                        </button>
+                        <button class="cyber-btn" id="toggleMatrix">
+                            <span class="btn-text">TOGGLE_MATRIX</span>
+                            <span class="btn-glow"></span>
+                        </button>
                     </div>
                 </div>
-                <div class="hero-visual">
-                    <div class="cube">
-                        <div class="face front">T</div>
-                        <div class="face back">H</div>
-                        <div class="face right">.</div>
-                        <div class="face left">DEV</div>
+                
+                <div class="system-stats">
+                    <div class="stat">
+                        <span class="stat-label">PARTICLES_ACTIVE:</span>
+                        <span class="stat-value" id="particleCount">250</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">FPS:</span>
+                        <span class="stat-value" id="fpsCounter">60</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">LOAD:</span>
+                        <span class="stat-value" id="systemLoad">12%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Access Panel -->
+            <section class="access-panel">
+                <h2 class="panel-title">> QUICK_ACCESS</h2>
+                <div class="panel-grid">
+                    <a href="cheat-menu.html" class="access-card">
+                        <div class="card-icon">⚡</div>
+                        <h3>CHEAT_MENU</h3>
+                        <p>Interactive debug and control panel</p>
+                        <span class="card-status">ONLINE</span>
+                    </a>
+                    
+                    <div class="access-card">
+                        <div class="card-icon">🔧</div>
+                        <h3>SETTINGS</h3>
+                        <p>System configuration and controls</p>
+                        <div class="card-controls">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="particleToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">PARTICLES</span>
+                        </div>
+                    </div>
+                    
+                    <div class="access-card">
+                        <div class="card-icon">📊</div>
+                        <h3>ANALYTICS</h3>
+                        <p>Performance metrics and stats</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%"></div>
+                            <span class="progress-text">78% OPTIMAL</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="activity-log">
+                <h2 class="log-title">> SYSTEM_LOG</h2>
+                <div class="log-entries">
+                    <div class="log-entry">
+                        <span class="log-time">[2024-01-25 14:32:01]</span>
+                        <span class="log-message">Cheat menu interface optimized</span>
+                        <span class="log-status success">SUCCESS</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">[2024-01-25 14:30:45]</span>
+                        <span class="log-message">Particle system performance enhanced</span>
+                        <span class="log-status success">SUCCESS</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">[2024-01-25 14:28:12]</span>
+                        <span class="log-message">Added cursor tilt interaction</span>
+                        <span class="log-status success">SUCCESS</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="cyber-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SYSTEM_STATUS</h3>
+                    <div class="status-bars">
+                        <div class="status-bar">
+                            <span>PERFORMANCE</span>
+                            <div class="bar">
+                                <div class="fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="status-bar">
+                            <span>RESPONSIVENESS</span>
+                            <div class="bar">
+                                <div class="fill" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>CONNECTIONS</h3>
+                    <div class="connection-links">
+                        <a href="https://github.com/TrojanHorseTH" class="link">GITHUB</a>
+                        <a href="#" class="link">PORTFOLIO</a>
+                        <a href="#" class="link">CONTACT</a>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section">
-            <div class="container">
-                <h2>Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>Cheat Menu System</h3>
-                        <p>Interactive debug panel with real-time controls</p>
-                        <a href="cheat-menu.html" class="btn">View Demo</a>
-                    </div>
-                    <div class="project-card">
-                        <h3>Particle Animation</h3>
-                        <p>Optimized particle system with interactive controls</p>
-                        <button class="btn" id="particleDemo">Launch Demo</button>
-                    </div>
-                </div>
+            
+            <div class="terminal-input">
+                <span class="input-prompt">terminal:~$ </span>
+                <input type="text" class="input-field" placeholder="Type 'help' for commands..." id="terminalInput">
+                <button class="input-btn" id="executeBtn">EXECUTE</button>
             </div>
-        </section>
-
-        <!-- Cheat Menu Section -->
-        <section id="cheat-menu" class="section">
-            <div class="container">
-                <h2>Interactive Controls</h2>
-                <div class="controls-panel">
-                    <div class="control-group">
-                        <label>Particles: <span id="particleCount">50</span></label>
-                        <input type="range" id="particleSlider" min="10" max="200" value="50">
-                    </div>
-                    <div class="control-group">
-                        <button class="btn" id="toggleParticles">Toggle Particles</button>
-                        <button class="btn" id="resetBtn">Reset</button>
-                    </div>
-                </div>
-                <div class="preview-canvas" id="previewCanvas">
-                    <!-- Canvas for particles -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 T.H Portfolio</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <!-- JavaScript -->
     <script src="script.js"></script>

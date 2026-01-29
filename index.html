@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +21,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= CANVAS ================= */
 canvas {
     position: fixed;
     inset: 0;
@@ -216,7 +214,6 @@ footer {
 
 <canvas id="fx"></canvas>
 
-<!-- ================= NAV ================= -->
 <nav>
     <div class="logo">
         <img src="TrojanHorse.png" alt="TrojanHorse Logo">
@@ -230,7 +227,6 @@ footer {
     </ul>
 </nav>
 
-<!-- ================= HERO ================= -->
 <div class="hero">
     <div class="hero-content">
         <h1>
@@ -246,7 +242,6 @@ footer {
     </div>
 </div>
 
-<!-- ================= ABOUT ================= -->
 <section>
     <h2>About TrojanHorse</h2>
     <p>
@@ -256,7 +251,6 @@ footer {
     </p>
 </section>
 
-<!-- ================= SOFTWARE PREVIEW ================= -->
 <section>
     <h2>Software Preview</h2>
     <p>
@@ -269,7 +263,6 @@ footer {
     </div>
 </section>
 
-<!-- ================= FEATURES ================= -->
 <section>
     <h2>Core Features</h2>
     <div class="features">
@@ -288,13 +281,11 @@ footer {
     </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer>
     <div>© 2026 TrojanHorse</div>
     <div>PRIVATE · INVITE ONLY</div>
 </footer>
 
-<!-- ================= BACKGROUND FX ================= -->
 <script>
 const canvas = document.getElementById("fx");
 const ctx = canvas.getContext("2d");
@@ -310,40 +301,42 @@ function resize() {
 resize();
 window.addEventListener("resize", resize);
 
-const particles = [];
-const COUNT = 45;
+const snowflakes = [];
+const COUNT = 80;
 
 for (let i = 0; i < COUNT; i++) {
-    particles.push({
+    snowflakes.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        s: Math.random() * 7 + 4,
-        v: Math.random() * 1.2 + 0.4,
-        d: Math.random() * 1 - 0.5
+        r: Math.random() * 2.5 + 1,
+        speed: Math.random() * 0.8 + 0.3,
+        drift: Math.random() * 0.6 - 0.3,
+        opacity: Math.random() * 0.5 + 0.3
     });
 }
 
-function animate() {
+function animateSnow() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(255,255,255,0.55)";
 
-    particles.forEach(p => {
+    snowflakes.forEach(flake => {
         ctx.beginPath();
-        ctx.ellipse(p.x, p.y, p.s, p.s * 0.6, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${flake.opacity})`;
+        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
         ctx.fill();
 
-        p.y += p.v;
-        p.x += p.d;
+        flake.y += flake.speed;
+        flake.x += flake.drift;
 
-        if (p.y > window.innerHeight) {
-            p.y = -20;
-            p.x = Math.random() * window.innerWidth;
+        if (flake.y > window.innerHeight) {
+            flake.y = -10;
+            flake.x = Math.random() * window.innerWidth;
         }
     });
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animateSnow);
 }
-animate();
+
+animateSnow();
 </script>
 
 </body>

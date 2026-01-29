@@ -127,9 +127,7 @@ nav li:hover {
 .preview-card {
     width: 520px;
     max-width: 90vw;
-    background: #000;
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 12px;
+    padding: 0; /* no background, no frame */
     transform-style: preserve-3d;
     transition: transform 0.15s ease-out;
 }
@@ -138,6 +136,7 @@ nav li:hover {
     width: 100%;
     display: block;
     transform: translateZ(40px);
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
 }
 
 /* ================= SECTIONS ================= */
@@ -240,7 +239,6 @@ footer {
     </div>
 </div>
 
-<!-- ABOUT -->
 <section>
     <h2>About TrojanHorse</h2>
     <p>
@@ -249,7 +247,6 @@ footer {
     </p>
 </section>
 
-<!-- FEATURES -->
 <section>
     <h2>Core Features</h2>
     <div class="features">

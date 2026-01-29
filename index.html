@@ -65,7 +65,6 @@ nav li {
     letter-spacing: 2px;
     opacity: 0.6;
     cursor: pointer;
-    transition: 0.25s;
 }
 
 nav li:hover {
@@ -77,11 +76,13 @@ nav li:hover {
     height: 92vh;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 90px;
+    gap: 60px;
 }
 
 .hero-content {
-    max-width: 760px;
+    max-width: 620px;
 }
 
 .hero h1 {
@@ -118,6 +119,27 @@ nav li:hover {
     color: black;
 }
 
+/* ================= 3D PREVIEW ================= */
+.preview-3d {
+    perspective: 1200px;
+}
+
+.preview-card {
+    width: 520px;
+    max-width: 90vw;
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 12px;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+}
+
+.preview-card img {
+    width: 100%;
+    display: block;
+    transform: translateZ(40px);
+}
+
 /* ================= SECTIONS ================= */
 section {
     padding: 120px 90px;
@@ -135,26 +157,6 @@ section p {
     line-height: 1.75;
 }
 
-/* ================= PREVIEW ================= */
-.preview {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-}
-
-.preview img {
-    width: 100%;
-    max-width: 900px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: #000;
-    padding: 12px;
-    transition: 0.35s ease;
-}
-
-.preview img:hover {
-    transform: scale(1.02);
-}
-
 /* ================= FEATURES ================= */
 .features {
     margin-top: 60px;
@@ -167,15 +169,6 @@ section p {
     border: 1px solid rgba(255,255,255,0.12);
     padding: 44px;
     transition: 0.35s ease;
-}
-
-.card h3 {
-    margin-bottom: 16px;
-    font-size: 20px;
-}
-
-.card p {
-    font-size: 15px;
 }
 
 .card:hover {
@@ -191,21 +184,18 @@ footer {
     justify-content: space-between;
     font-size: 13px;
     opacity: 0.5;
-    letter-spacing: 1px;
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-    nav, section, footer, .hero {
-        padding: 40px;
+@media (max-width: 1000px) {
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
     }
 
-    nav ul {
-        display: none;
-    }
-
-    .hero h1 {
-        font-size: 44px;
+    .preview-card {
+        width: 420px;
     }
 }
 </style>
@@ -214,9 +204,10 @@ footer {
 
 <canvas id="fx"></canvas>
 
+<!-- NAV -->
 <nav>
     <div class="logo">
-        <img src="TrojanHorse.png" alt="TrojanHorse Logo">
+        <img src="TrojanHorse.png">
         <span>TROJANHORSE</span>
     </div>
     <ul>
@@ -227,6 +218,7 @@ footer {
     </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
     <div class="hero-content">
         <h1>
@@ -236,47 +228,42 @@ footer {
         </h1>
         <p>
             TrojanHorse delivers private, high-performance modification software
-            built for stealth, reliability, and competitive advantage.
+            built for stealth, reliability, and competitive dominance.
         </p>
         <button>VIEW SOFTWARE</button>
     </div>
+
+    <div class="preview-3d">
+        <div class="preview-card" id="tiltCard">
+            <img src="cheat-preview.png" alt="Software Preview">
+        </div>
+    </div>
 </div>
 
+<!-- ABOUT -->
 <section>
     <h2>About TrojanHorse</h2>
     <p>
-        TrojanHorse is a closed-access software provider specializing in
-        advanced cheat frameworks, bypass-oriented development,
-        and performance-optimized tools.
+        TrojanHorse is a closed-access provider of advanced cheat frameworks,
+        bypass-oriented development, and performance-optimized tooling.
     </p>
 </section>
 
-<section>
-    <h2>Software Preview</h2>
-    <p>
-        A minimal, responsive interface engineered for fast access, low
-        overhead, and precise control during runtime.
-    </p>
-
-    <div class="preview">
-        <img src="cheat-preview.png" alt="TrojanHorse Software Preview">
-    </div>
-</section>
-
+<!-- FEATURES -->
 <section>
     <h2>Core Features</h2>
     <div class="features">
         <div class="card">
             <h3>Private Builds</h3>
-            <p>Unique, limited-access software with user-specific signatures.</p>
+            <p>Unique software per user with custom signatures.</p>
         </div>
         <div class="card">
             <h3>Bypass Updates</h3>
-            <p>Frequent updates to maintain undetected status.</p>
+            <p>Continuous maintenance for undetected status.</p>
         </div>
         <div class="card">
-            <h3>Performance First</h3>
-            <p>Designed to maintain FPS and system stability.</p>
+            <h3>Zero FPS Impact</h3>
+            <p>Optimized runtime with no performance loss.</p>
         </div>
     </div>
 </section>
@@ -286,57 +273,76 @@ footer {
     <div>PRIVATE · INVITE ONLY</div>
 </footer>
 
+<!-- ================= SNOW EFFECT ================= -->
 <script>
 const canvas = document.getElementById("fx");
 const ctx = canvas.getContext("2d");
 
 function resize() {
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
+    canvas.width = innerWidth * dpr;
+    canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + "px";
+    canvas.style.height = innerHeight + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 resize();
-window.addEventListener("resize", resize);
+addEventListener("resize", resize);
 
-const snowflakes = [];
-const COUNT = 80;
-
-for (let i = 0; i < COUNT; i++) {
-    snowflakes.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
+const snow = [];
+for (let i = 0; i < 90; i++) {
+    snow.push({
+        x: Math.random() * innerWidth,
+        y: Math.random() * innerHeight,
         r: Math.random() * 2.5 + 1,
-        speed: Math.random() * 0.8 + 0.3,
-        drift: Math.random() * 0.6 - 0.3,
-        opacity: Math.random() * 0.5 + 0.3
+        s: Math.random() * 0.8 + 0.3,
+        d: Math.random() * 0.6 - 0.3,
+        o: Math.random() * 0.5 + 0.3
     });
 }
 
 function animateSnow() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    snowflakes.forEach(flake => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    snow.forEach(f => {
+        ctx.fillStyle = `rgba(255,255,255,${f.o})`;
         ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${flake.opacity})`;
-        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
         ctx.fill();
 
-        flake.y += flake.speed;
-        flake.x += flake.drift;
+        f.y += f.s;
+        f.x += f.d;
 
-        if (flake.y > window.innerHeight) {
-            flake.y = -10;
-            flake.x = Math.random() * window.innerWidth;
+        if (f.y > innerHeight) {
+            f.y = -10;
+            f.x = Math.random() * innerWidth;
         }
     });
-
     requestAnimationFrame(animateSnow);
 }
-
 animateSnow();
+</script>
+
+<!-- ================= 3D CURSOR ROTATION ================= -->
+<script>
+const card = document.getElementById("tiltCard");
+
+document.addEventListener("mousemove", e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    const rotateX = (-y / 25).toFixed(2);
+    const rotateY = (x / 25).toFixed(2);
+
+    card.style.transform = `
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+    `;
+});
+
+document.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(0deg) rotateY(0deg)";
+});
 </script>
 
 </body>

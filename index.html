@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrojanHorse | Cybersecurity</title>
-
-<!-- Favicon (optional, add favicon.png to repo root) -->
-<!-- <link rel="icon" type="image/png" href="favicon.png"> -->
+<title>TrojanHorse | Private Software</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -37,25 +34,32 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 28px 90px;
+    padding: 26px 90px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .logo {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 4px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo img {
+    height: 42px;
+    filter: grayscale(100%) brightness(1.2);
 }
 
 .logo span {
-    opacity: 0.5;
-    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    opacity: 0.8;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 42px;
+    gap: 40px;
 }
 
 nav li {
@@ -63,7 +67,7 @@ nav li {
     letter-spacing: 2px;
     opacity: 0.6;
     cursor: pointer;
-    transition: opacity 0.25s ease;
+    transition: 0.25s;
 }
 
 nav li:hover {
@@ -79,11 +83,11 @@ nav li:hover {
 }
 
 .hero-content {
-    max-width: 720px;
+    max-width: 760px;
 }
 
 .hero h1 {
-    font-size: 66px;
+    font-size: 64px;
     line-height: 1.05;
     letter-spacing: 2px;
     margin-bottom: 24px;
@@ -97,14 +101,14 @@ nav li:hover {
     font-size: 18px;
     line-height: 1.7;
     opacity: 0.6;
-    margin-bottom: 42px;
+    margin-bottom: 44px;
 }
 
 .hero button {
     background: transparent;
     color: white;
     border: 1px solid white;
-    padding: 14px 38px;
+    padding: 14px 40px;
     font-size: 13px;
     letter-spacing: 3px;
     cursor: pointer;
@@ -123,18 +127,18 @@ section {
 }
 
 section h2 {
-    font-size: 38px;
-    margin-bottom: 22px;
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 
 section p {
-    max-width: 720px;
+    max-width: 740px;
     opacity: 0.6;
     line-height: 1.75;
 }
 
-/* ===================== SERVICES ===================== */
-.services {
+/* ===================== FEATURES ===================== */
+.features {
     margin-top: 60px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -144,12 +148,12 @@ section p {
 .card {
     border: 1px solid rgba(255,255,255,0.12);
     padding: 44px;
-    transition: all 0.35s ease;
+    transition: 0.35s ease;
 }
 
 .card h3 {
-    font-size: 20px;
     margin-bottom: 16px;
+    font-size: 20px;
 }
 
 .card p {
@@ -183,22 +187,25 @@ footer {
     }
 
     .hero h1 {
-        font-size: 46px;
+        font-size: 44px;
     }
 }
 </style>
 </head>
 <body>
 
-<canvas id="leaves"></canvas>
+<canvas id="fx"></canvas>
 
 <!-- ===================== NAV ===================== -->
 <nav>
-    <div class="logo">TROJANHORSE <span>· T.H</span></div>
+    <div class="logo">
+        <img src="TrojanHorse.png" alt="TrojanHorse Logo">
+        <span>TROJANHORSE</span>
+    </div>
     <ul>
-        <li>ABOUT</li>
-        <li>SERVICES</li>
-        <li>SECURITY</li>
+        <li>PRODUCTS</li>
+        <li>STATUS</li>
+        <li>FAQ</li>
         <li>CONTACT</li>
     </ul>
 </nav>
@@ -207,16 +214,15 @@ footer {
 <div class="hero">
     <div class="hero-content">
         <h1>
-            SECURE.<br>
-            <span>INFILTRATE.</span><br>
-            PROTECT.
+            PRIVATE.<br>
+            <span>UNDETECTED.</span><br>
+            CONTROL.
         </h1>
         <p>
-            TrojanHorse (T.H) is an elite cybersecurity firm delivering
-            penetration testing, threat intelligence, and infrastructure
-            hardening for high-risk digital environments.
+            TrojanHorse delivers private, high-performance software for competitive
+            environments. Built for stealth, stability, and total dominance.
         </p>
-        <button>REQUEST ACCESS</button>
+        <button>VIEW SOFTWARE</button>
     </div>
 </div>
 
@@ -224,43 +230,43 @@ footer {
 <section>
     <h2>About TrojanHorse</h2>
     <p>
-        Built by security engineers and red-team specialists, TrojanHorse
-        operates with precision, discretion, and total focus on exposing
-        vulnerabilities before real adversaries do.
+        TrojanHorse is a closed-access software provider focused on advanced
+        modification frameworks, memory-level performance tools, and
+        bypass-oriented development.
     </p>
 </section>
 
-<!-- ===================== SERVICES ===================== -->
+<!-- ===================== FEATURES ===================== -->
 <section>
-    <h2>Core Capabilities</h2>
-    <div class="services">
+    <h2>Software Capabilities</h2>
+    <div class="features">
         <div class="card">
-            <h3>Penetration Testing</h3>
-            <p>Simulated attacks designed to uncover real-world weaknesses.</p>
+            <h3>Private Builds</h3>
+            <p>Limited-access software with unique signatures per user.</p>
         </div>
         <div class="card">
-            <h3>Threat Intelligence</h3>
-            <p>Continuous monitoring of emerging digital threats.</p>
+            <h3>Undetected Methods</h3>
+            <p>Continuously updated bypass techniques.</p>
         </div>
         <div class="card">
-            <h3>Infrastructure Security</h3>
-            <p>Hardening networks, servers, and cloud environments.</p>
+            <h3>Performance Focused</h3>
+            <p>Zero FPS impact and optimized injection flow.</p>
         </div>
     </div>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
 <footer>
-    <div>© 2026 TrojanHorse (T.H)</div>
-    <div>CONFIDENTIAL · ENCRYPTED</div>
+    <div>© 2026 TrojanHorse</div>
+    <div>PRIVATE · INVITE ONLY</div>
 </footer>
 
-<!-- ===================== FALLING LEAVES ===================== -->
+<!-- ===================== BACKGROUND FX ===================== -->
 <script>
-const canvas = document.getElementById("leaves");
+const canvas = document.getElementById("fx");
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
+function resize() {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
@@ -268,45 +274,43 @@ function resizeCanvas() {
     canvas.style.height = window.innerHeight + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
+resize();
+window.addEventListener("resize", resize);
 
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+const particles = [];
+const COUNT = 45;
 
-const leaves = [];
-const LEAF_COUNT = 45;
-
-for (let i = 0; i < LEAF_COUNT; i++) {
-    leaves.push({
+for (let i = 0; i < COUNT; i++) {
+    particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        size: Math.random() * 7 + 4,
-        speed: Math.random() * 1.2 + 0.4,
-        drift: Math.random() * 1 - 0.5
+        s: Math.random() * 7 + 4,
+        v: Math.random() * 1.2 + 0.4,
+        d: Math.random() * 1 - 0.5
     });
 }
 
-function animateLeaves() {
+function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "rgba(255,255,255,0.55)";
 
-    leaves.forEach(l => {
+    particles.forEach(p => {
         ctx.beginPath();
-        ctx.ellipse(l.x, l.y, l.size, l.size * 0.6, 0, 0, Math.PI * 2);
+        ctx.ellipse(p.x, p.y, p.s, p.s * 0.6, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        l.y += l.speed;
-        l.x += l.drift;
+        p.y += p.v;
+        p.x += p.d;
 
-        if (l.y > window.innerHeight) {
-            l.y = -20;
-            l.x = Math.random() * window.innerWidth;
+        if (p.y > window.innerHeight) {
+            p.y = -20;
+            p.x = Math.random() * window.innerWidth;
         }
     });
 
-    requestAnimationFrame(animateLeaves);
+    requestAnimationFrame(animate);
 }
-
-animateLeaves();
+animate();
 </script>
 
 </body>

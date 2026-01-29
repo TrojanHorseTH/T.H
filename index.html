@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===================== RESET ===================== */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
@@ -22,14 +22,14 @@ body {
     overflow-x: hidden;
 }
 
-/* ===================== CANVAS ===================== */
+/* ================= CANVAS ================= */
 canvas {
     position: fixed;
     inset: 0;
     z-index: -1;
 }
 
-/* ===================== NAV ===================== */
+/* ================= NAV ================= */
 nav {
     display: flex;
     justify-content: space-between;
@@ -46,7 +46,7 @@ nav {
 
 .logo img {
     height: 42px;
-    filter: grayscale(100%) brightness(1.2);
+    filter: grayscale(100%) brightness(1.15);
 }
 
 .logo span {
@@ -74,7 +74,7 @@ nav li:hover {
     opacity: 1;
 }
 
-/* ===================== HERO ===================== */
+/* ================= HERO ================= */
 .hero {
     height: 92vh;
     display: flex;
@@ -112,7 +112,7 @@ nav li:hover {
     font-size: 13px;
     letter-spacing: 3px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .hero button:hover {
@@ -120,7 +120,7 @@ nav li:hover {
     color: black;
 }
 
-/* ===================== SECTIONS ===================== */
+/* ================= SECTIONS ================= */
 section {
     padding: 120px 90px;
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -137,7 +137,27 @@ section p {
     line-height: 1.75;
 }
 
-/* ===================== FEATURES ===================== */
+/* ================= PREVIEW ================= */
+.preview {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.preview img {
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+    padding: 12px;
+    transition: 0.35s ease;
+}
+
+.preview img:hover {
+    transform: scale(1.02);
+}
+
+/* ================= FEATURES ================= */
 .features {
     margin-top: 60px;
     display: grid;
@@ -165,7 +185,7 @@ section p {
     color: black;
 }
 
-/* ===================== FOOTER ===================== */
+/* ================= FOOTER ================= */
 footer {
     padding: 60px 90px;
     border-top: 1px solid rgba(255,255,255,0.1);
@@ -176,7 +196,7 @@ footer {
     letter-spacing: 1px;
 }
 
-/* ===================== RESPONSIVE ===================== */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
     nav, section, footer, .hero {
         padding: 40px;
@@ -196,7 +216,7 @@ footer {
 
 <canvas id="fx"></canvas>
 
-<!-- ===================== NAV ===================== -->
+<!-- ================= NAV ================= -->
 <nav>
     <div class="logo">
         <img src="TrojanHorse.png" alt="TrojanHorse Logo">
@@ -210,7 +230,7 @@ footer {
     </ul>
 </nav>
 
-<!-- ===================== HERO ===================== -->
+<!-- ================= HERO ================= -->
 <div class="hero">
     <div class="hero-content">
         <h1>
@@ -219,49 +239,62 @@ footer {
             CONTROL.
         </h1>
         <p>
-            TrojanHorse delivers private, high-performance software for competitive
-            environments. Built for stealth, stability, and total dominance.
+            TrojanHorse delivers private, high-performance modification software
+            built for stealth, reliability, and competitive advantage.
         </p>
         <button>VIEW SOFTWARE</button>
     </div>
 </div>
 
-<!-- ===================== ABOUT ===================== -->
+<!-- ================= ABOUT ================= -->
 <section>
     <h2>About TrojanHorse</h2>
     <p>
-        TrojanHorse is a closed-access software provider focused on advanced
-        modification frameworks, memory-level performance tools, and
-        bypass-oriented development.
+        TrojanHorse is a closed-access software provider specializing in
+        advanced cheat frameworks, bypass-oriented development,
+        and performance-optimized tools.
     </p>
 </section>
 
-<!-- ===================== FEATURES ===================== -->
+<!-- ================= SOFTWARE PREVIEW ================= -->
 <section>
-    <h2>Software Capabilities</h2>
+    <h2>Software Preview</h2>
+    <p>
+        A minimal, responsive interface engineered for fast access, low
+        overhead, and precise control during runtime.
+    </p>
+
+    <div class="preview">
+        <img src="cheat-preview.png" alt="TrojanHorse Software Preview">
+    </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section>
+    <h2>Core Features</h2>
     <div class="features">
         <div class="card">
             <h3>Private Builds</h3>
-            <p>Limited-access software with unique signatures per user.</p>
+            <p>Unique, limited-access software with user-specific signatures.</p>
         </div>
         <div class="card">
-            <h3>Undetected Methods</h3>
-            <p>Continuously updated bypass techniques.</p>
+            <h3>Bypass Updates</h3>
+            <p>Frequent updates to maintain undetected status.</p>
         </div>
         <div class="card">
-            <h3>Performance Focused</h3>
-            <p>Zero FPS impact and optimized injection flow.</p>
+            <h3>Performance First</h3>
+            <p>Designed to maintain FPS and system stability.</p>
         </div>
     </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
+<!-- ================= FOOTER ================= -->
 <footer>
     <div>© 2026 TrojanHorse</div>
     <div>PRIVATE · INVITE ONLY</div>
 </footer>
 
-<!-- ===================== BACKGROUND FX ===================== -->
+<!-- ================= BACKGROUND FX ================= -->
 <script>
 const canvas = document.getElementById("fx");
 const ctx = canvas.getContext("2d");

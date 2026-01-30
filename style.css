@@ -478,6 +478,71 @@ body {
     display: inline-block;
 }
 
+.switch {
+  width: 38px;
+  height: 20px;
+  background: #222;              /* OFF = dark */
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 4px;
+  transition: transform 0.2s;
+}
+
+/* ON STATE */
+.switch.active {
+  background: #ffffff;           /* TRACK GOES WHITE */
+}
+
+.switch.active::after {
+  transform: translateX(16px);
+  background: #000;              /* optional: black knob for contrast */
+}
+.switch {
+  width: 38px;
+  height: 20px;
+  background: #222;              /* OFF = dark */
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 4px;
+  transition: transform 0.2s;
+}
+
+/* ON STATE */
+.switch.active {
+  background: #ffffff;           /* TRACK GOES WHITE */
+  box-shadow: 0 0 6px rgba(255,255,255,0.6);
+}
+
+.switch.active::after {
+  transform: translateX(16px);
+  background: #000;              /* optional: black knob for contrast */
+}
+
+
 /* Toggle Switch */
 .card-controls {
     display: flex;
@@ -819,4 +884,5 @@ input:checked + .slider:before {
         transition-duration: 0.01ms !important;
     }
 }
+
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>TrojanHorse Menu Preview</title>
+<title>TrojanHorse Menu</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -21,13 +21,17 @@ body {
   color: #fff;
 }
 
+/* MENU */
 .menu {
   width: 420px;
+  height: 560px; /* LOCKED SIZE */
   background: #0b0b0b;
   border: 1px solid #1a1a1a;
   border-radius: 12px;
   box-shadow: 0 40px 120px rgba(0,0,0,0.8);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* HEADER */
@@ -77,7 +81,9 @@ body {
 
 /* CONTENT */
 .content {
+  flex: 1;
   padding: 22px;
+  overflow-y: auto; /* SCROLL INSIDE */
 }
 
 .tab-panel {
@@ -138,7 +144,12 @@ body {
   transform: translateX(16px);
 }
 
-/* SLIDERS (default browser look) */
+/* SLIDERS — FORCE WHITE */
+input[type="range"] {
+  width: 100%;
+  accent-color: #ffffff;
+}
+
 .slider {
   margin-bottom: 14px;
 }
@@ -148,10 +159,6 @@ body {
   color: #ddd;
   display: block;
   margin-bottom: 6px;
-}
-
-input[type="range"] {
-  width: 100%;
 }
 
 /* FOOTER */
@@ -186,7 +193,7 @@ input[type="range"] {
     <!-- AIMBOT -->
     <div class="tab-panel active" id="aimbot">
       <div class="section">
-        <div class="section-title">Primary Controls</div>
+        <div class="section-title">Primary</div>
 
         <div class="toggle">
           <span>Enable Aimbot</span>
@@ -217,7 +224,7 @@ input[type="range"] {
     <!-- SCRIPT -->
     <div class="tab-panel" id="script">
       <div class="section">
-        <div class="section-title">Script Engine</div>
+        <div class="section-title">Scripts</div>
 
         <div class="toggle">
           <span>Enable Scripts</span>
@@ -274,14 +281,14 @@ input[type="range"] {
 </div>
 
 <script>
-// Toggles
+/* TOGGLES */
 document.querySelectorAll('.switch').forEach(sw => {
   sw.addEventListener('click', () => {
     sw.classList.toggle('active');
   });
 });
 
-// Tabs
+/* TABS */
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));

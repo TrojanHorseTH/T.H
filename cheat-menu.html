@@ -21,7 +21,6 @@ body {
   color: #fff;
 }
 
-/* MAIN MENU */
 .menu {
   width: 420px;
   background: #0b0b0b;
@@ -41,9 +40,8 @@ body {
 }
 
 .logo {
-  height: 28px;
-  width: auto;
-  display: block;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .version {
@@ -65,6 +63,7 @@ body {
   letter-spacing: 1px;
   color: #888;
   border-right: 1px solid #1a1a1a;
+  cursor: pointer;
 }
 
 .tab:last-child {
@@ -112,6 +111,8 @@ body {
   background: #222;
   border-radius: 10px;
   position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .switch::after {
@@ -123,6 +124,15 @@ body {
   border-radius: 50%;
   top: 3px;
   left: 4px;
+  transition: transform 0.2s;
+}
+
+.switch.active {
+  background: #4caf50;
+}
+
+.switch.active::after {
+  transform: translateX(16px);
 }
 
 /* SLIDER */
@@ -137,18 +147,8 @@ body {
   margin-bottom: 6px;
 }
 
-.bar {
-  height: 6px;
-  background: #1a1a1a;
-  border-radius: 3px;
-  position: relative;
-}
-
-.fill {
-  width: 65%;
-  height: 100%;
-  background: #fff;
-  border-radius: 3px;
+input[type="range"] {
+  width: 100%;
 }
 
 /* FOOTER */
@@ -167,7 +167,7 @@ body {
 
 <div class="menu">
   <div class="menu-header">
-    <img src="TrojanHorse.png" alt="TrojanHorse Logo" class="logo">
+    <div class="logo">TROJANHORSE</div>
     <span class="version">v1.0</span>
   </div>
 
@@ -199,25 +199,45 @@ body {
 
       <div class="slider">
         <label>Precision Level</label>
-        <div class="bar">
-          <div class="fill"></div>
-        </div>
+        <input type="range" min="0" max="100" value="65">
       </div>
 
       <div class="slider">
         <label>Response Speed</label>
-        <div class="bar">
-          <div class="fill" style="width:45%"></div>
-        </div>
+        <input type="range" min="0" max="100" value="45">
       </div>
     </div>
   </div>
 
   <div class="menu-footer">
-    <span>Status: Unactive</span>
+    <span id="status">Status: Unactive</span>
     <span>Secure Session</span>
   </div>
 </div>
+
+<script>
+// Toggles
+document.querySelectorAll('.switch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    sw.classList.toggle('active');
+    updateStatus();
+  });
+});
+
+// Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+function updateStatus() {
+  const active = document.querySelector('.switch.active');
+  document.getElementById('status').textContent =
+    active ? 'Status: Active' : 'Status: Unactive';
+}
+</script>
 
 </body>
 </html>

@@ -80,6 +80,14 @@ body {
   padding: 22px;
 }
 
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
 .section {
   margin-bottom: 22px;
 }
@@ -112,7 +120,6 @@ body {
   border-radius: 10px;
   position: relative;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .switch::after {
@@ -127,15 +134,11 @@ body {
   transition: transform 0.2s;
 }
 
-.switch.active {
-  background: #4caf50;
-}
-
 .switch.active::after {
   transform: translateX(16px);
 }
 
-/* SLIDER */
+/* SLIDERS (default browser look) */
 .slider {
   margin-bottom: 14px;
 }
@@ -172,45 +175,100 @@ input[type="range"] {
   </div>
 
   <div class="tabs">
-    <div class="tab active">AIMBOT</div>
-    <div class="tab">SCRIPT</div>
-    <div class="tab">CONFIG</div>
-    <div class="tab">VISUAL</div>
-    <div class="tab">SETTINGS</div>
+    <div class="tab active" data-tab="aimbot">AIMBOT</div>
+    <div class="tab" data-tab="script">SCRIPT</div>
+    <div class="tab" data-tab="visual">VISUAL</div>
+    <div class="tab" data-tab="settings">SETTINGS</div>
   </div>
 
   <div class="content">
-    <div class="section">
-      <div class="section-title">Primary Controls</div>
 
-      <div class="toggle">
-        <span>Enable Module</span>
-        <div class="switch"></div>
+    <!-- AIMBOT -->
+    <div class="tab-panel active" id="aimbot">
+      <div class="section">
+        <div class="section-title">Primary Controls</div>
+
+        <div class="toggle">
+          <span>Enable Aimbot</span>
+          <div class="switch"></div>
+        </div>
+
+        <div class="toggle">
+          <span>Auto Fire</span>
+          <div class="switch"></div>
+        </div>
       </div>
 
-      <div class="toggle">
-        <span>Auto Optimization</span>
-        <div class="switch"></div>
+      <div class="section">
+        <div class="section-title">Tuning</div>
+
+        <div class="slider">
+          <label>Precision</label>
+          <input type="range" min="0" max="100">
+        </div>
+
+        <div class="slider">
+          <label>Smoothness</label>
+          <input type="range" min="0" max="100">
+        </div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-title">Tuning</div>
+    <!-- SCRIPT -->
+    <div class="tab-panel" id="script">
+      <div class="section">
+        <div class="section-title">Script Engine</div>
 
-      <div class="slider">
-        <label>Precision Level</label>
-        <input type="range" min="0" max="100" value="65">
-      </div>
+        <div class="toggle">
+          <span>Enable Scripts</span>
+          <div class="switch"></div>
+        </div>
 
-      <div class="slider">
-        <label>Response Speed</label>
-        <input type="range" min="0" max="100" value="45">
+        <div class="toggle">
+          <span>Auto Reload</span>
+          <div class="switch"></div>
+        </div>
       </div>
     </div>
+
+    <!-- VISUAL -->
+    <div class="tab-panel" id="visual">
+      <div class="section">
+        <div class="section-title">Visuals</div>
+
+        <div class="toggle">
+          <span>ESP Overlay</span>
+          <div class="switch"></div>
+        </div>
+
+        <div class="slider">
+          <label>Brightness</label>
+          <input type="range" min="0" max="100">
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="tab-panel" id="settings">
+      <div class="section">
+        <div class="section-title">System</div>
+
+        <div class="toggle">
+          <span>Safe Mode</span>
+          <div class="switch"></div>
+        </div>
+
+        <div class="toggle">
+          <span>Auto Save</span>
+          <div class="switch"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="menu-footer">
-    <span id="status">Status: Unactive</span>
+    <span>Status: Idle</span>
     <span>Secure Session</span>
   </div>
 </div>
@@ -220,7 +278,6 @@ input[type="range"] {
 document.querySelectorAll('.switch').forEach(sw => {
   sw.addEventListener('click', () => {
     sw.classList.toggle('active');
-    updateStatus();
   });
 });
 
@@ -228,15 +285,12 @@ document.querySelectorAll('.switch').forEach(sw => {
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
     tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
   });
 });
-
-function updateStatus() {
-  const active = document.querySelector('.switch.active');
-  document.getElementById('status').textContent =
-    active ? 'Status: Active' : 'Status: Unactive';
-}
 </script>
 
 </body>

@@ -18,6 +18,26 @@
     box-sizing: border-box;
 }
 
+/* Lock menu height */
+.menu {
+  width: 420px;
+  height: 560px;
+}
+
+/* Lock content area */
+.content {
+  padding: 22px;
+  height: 420px;
+  overflow-y: auto;
+}
+
+/* Keep sliders white */
+input[type="range"] {
+  width: 100%;
+  accent-color: #ffffff;
+}
+
+
 body {
     font-family: 'Rajdhani', 'Courier New', monospace;
     background: #000;
@@ -799,3 +819,4 @@ input:checked + .slider:before {
         transition-duration: 0.01ms !important;
     }
 }
+

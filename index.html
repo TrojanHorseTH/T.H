@@ -310,8 +310,8 @@
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
 
-        const rotateX = (-y / 25).toFixed(2);
-        const rotateY = (x / 25).toFixed(2);
+        const rotateX = (y / 25).toFixed(2);  // Positive Y = rotation up
+        const rotateY = (-x / 25).toFixed(2); // Negative X = rotation right
 
         card.style.transform = `
             rotateX(${rotateX}deg)
@@ -323,31 +323,24 @@
         card.style.transform = "rotateX(0deg) rotateY(0deg)";
     });
 
-    // Use Software Button Logic
+    // Modal and Button Actions
     document.getElementById("useSoftwareButton").addEventListener("click", function() {
-        // Show modal
         document.getElementById("softwareModal").style.display = 'block';
     });
 
     // Handle App Version Download
     document.getElementById("useAppVersionButton").addEventListener("click", function() {
-        // Trigger software download
         const downloadLink = document.createElement('a');
-        downloadLink.href = 'https://github.com/TrojanHorseTH/T.H/blob/main/TrojanHorse.png?raw=true';  // Replace with your actual software download URL
-        downloadLink.download = 'TrojanHorse.png';
+        downloadLink.href = 'https://github.com/TrojanHorseTH/T.H/blob/main/TrojanHorse.png?raw=true';  // Download link
+        downloadLink.download = 'TrojanHorse_Software.exe';  // Set the downloaded file name
         downloadLink.click();
-
-        // Close the modal
-        document.getElementById("softwareModal").style.display = 'none';
+        document.getElementById("softwareModal").style.display = 'none';  // Close modal
     });
 
     // Handle Web Version Redirection
     document.getElementById("useWebVersionButton").addEventListener("click", function() {
-        // Redirect to the web version URL
-        window.location.href = 'https://trojanhorseth.github.io/T.H/cheat-menu';  // Replace with your web version URL
-
-        // Close the modal
-        document.getElementById("softwareModal").style.display = 'none';
+        window.location.href = 'https://trojanhorseth.github.io/T.H/cheat-menu';  // Web version link
+        document.getElementById("softwareModal").style.display = 'none';  // Close modal
     });
 
     // Close the modal if user clicks outside
@@ -368,4 +361,3 @@
 
 </body>
 </html>
-

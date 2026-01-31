@@ -117,58 +117,43 @@
             color: black;
         }
 
-        /* ================= 3D PREVIEW ================= */
-        .preview-3d {
-            perspective: 1200px;
+        /* ================= POPUP MODAL ================= */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            z-index: 1000;
         }
 
-        .preview-card {
-            width: 520px;
-            max-width: 90vw;
-            padding: 0;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out;
-        }
-
-        .preview-card img {
-            width: 100%;
-            display: block;
-            transform: translateZ(40px);
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
-        }
-
-        /* ================= SECTIONS ================= */
-        section {
-            padding: 120px 90px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        section h2 {
-            font-size: 36px;
+        .modal h2 {
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
-        section p {
-            max-width: 740px;
-            opacity: 0.6;
-            line-height: 1.75;
+        .modal p {
+            font-size: 16px;
+            margin-bottom: 20px;
         }
 
-        /* ================= FEATURES ================= */
-        .features {
-            margin-top: 60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 42px;
+        .modal button {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 12px 30px;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
         }
 
-        .card {
-            border: 1px solid rgba(255,255,255,0.12);
-            padding: 44px;
-            transition: 0.35s ease;
-        }
-
-        .card:hover {
+        .modal button:hover {
             background: white;
             color: black;
         }
@@ -340,18 +325,42 @@
 
     // Use Software Button Logic
     document.getElementById("useSoftwareButton").addEventListener("click", function() {
-        // Initiate download
+        // Show modal
+        document.getElementById("softwareModal").style.display = 'block';
+    });
+
+    // Handle download from the modal
+    document.getElementById("useAppVersionButton").addEventListener("click", function() {
+        // Trigger software download
         const downloadLink = document.createElement('a');
         downloadLink.href = 'https://example.com/path_to_your_software.exe';  // Replace with your actual software download URL
-        downloadLink.download = 'TrojanHorse_Software.exe'; // Name for the downloaded file
+        downloadLink.download = 'TrojanHorse_Software.exe';
         downloadLink.click();
 
-        // Show message to user
+        // Close modal after download starts
+        document.getElementById("softwareModal").style.display = 'none';
+
+        // Show a message after download starts
         setTimeout(() => {
-            alert('Download complete! Please open the software to continue. You can use either the app or website to get started.');
-        }, 1000); // Delay the alert for 1 second after download
+            alert('Download started! Please open the software to continue.');
+        }, 1000);
     });
+
+    // Close the modal if user clicks outside
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("softwareModal")) {
+            document.getElementById("softwareModal").style.display = "none";
+        }
+    };
 </script>
+
+<!-- ================= MODAL POPUP ================= -->
+<div id="softwareModal" class="modal">
+    <h2>Choose Your Version</h2>
+    <p>Download the app version or use the web version.</p>
+    <button id="useAppVersionButton">Use App Version</button>
+    <button id="useWebVersionButton">Use Web Version</button>
+</div>
 
 </body>
 </html>

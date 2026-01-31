@@ -315,18 +315,34 @@
     }
     animateSnow();
 
+    // 3D Cursor Effect for Image Card
+    const card = document.getElementById("tiltCard");
+
+    document.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const rotateX = (-y / 25).toFixed(2);
+        const rotateY = (x / 25).toFixed(2);
+
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    document.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+    });
+
     // Use Software Button Logic
     document.getElementById("useSoftwareButton").addEventListener("click", function() {
         // Link to the raw GitHub file with the proper "raw" query parameter
-        const downloadLink = 'https://github.com/TrojanHorseTH/T.H/raw/refs/heads/main/Software.zip';  // Ensure this is the correct file path
-
+        const downloadLink = 'https://raw.githubusercontent.com/TrojanHorseTH/T.H/main/Software.exe'; // Correct download link
         const anchor = document.createElement('a');
         anchor.href = downloadLink;
-        anchor.download = 'Software.exe';  // Name the file when downloaded
+        anchor.download = 'Software.exe'; // Name the file when downloaded
         anchor.click();  // Trigger the download
     });
 </script>
 
 </body>
 </html>
-

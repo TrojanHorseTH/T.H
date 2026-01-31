@@ -1,203 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrojanHorse | Private Software</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrojanHorse | Private Software</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
 
-body {
-    background: #000;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-}
+        /* ================= NAV ================= */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 26px 90px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
 
-canvas {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-/* ================= NAV ================= */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 26px 90px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+        .logo img {
+            height: 42px;
+            filter: grayscale(100%) brightness(1.15);
+        }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
+        .logo span {
+            font-size: 18px;
+            letter-spacing: 3px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
 
-.logo img {
-    height: 42px;
-    filter: grayscale(100%) brightness(1.15);
-}
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
 
-.logo span {
-    font-size: 18px;
-    letter-spacing: 3px;
-    font-weight: 600;
-    opacity: 0.8;
-}
+        nav li {
+            font-size: 13px;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            cursor: pointer;
+        }
 
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 40px;
-}
+        nav li:hover {
+            opacity: 1;
+        }
 
-nav li {
-    font-size: 13px;
-    letter-spacing: 2px;
-    opacity: 0.6;
-    cursor: pointer;
-}
+        /* ================= HERO ================= */
+        .hero {
+            height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 90px;
+            gap: 60px;
+        }
 
-nav li:hover {
-    opacity: 1;
-}
+        .hero-content {
+            max-width: 620px;
+        }
 
-/* ================= HERO ================= */
-.hero {
-    height: 92vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 90px;
-    gap: 60px;
-}
+        .hero h1 {
+            font-size: 64px;
+            line-height: 1.05;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
 
-.hero-content {
-    max-width: 620px;
-}
+        .hero h1 span {
+            opacity: 0.45;
+        }
 
-.hero h1 {
-    font-size: 64px;
-    line-height: 1.05;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-}
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.6;
+            margin-bottom: 44px;
+        }
 
-.hero h1 span {
-    opacity: 0.45;
-}
+        .hero button {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 14px 40px;
+            font-size: 13px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
 
-.hero p {
-    font-size: 18px;
-    line-height: 1.7;
-    opacity: 0.6;
-    margin-bottom: 44px;
-}
+        .hero button:hover {
+            background: white;
+            color: black;
+        }
 
-.hero button {
-    background: transparent;
-    color: white;
-    border: 1px solid white;
-    padding: 14px 40px;
-    font-size: 13px;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
+        /* ================= 3D PREVIEW ================= */
+        .preview-3d {
+            perspective: 1200px;
+        }
 
-.hero button:hover {
-    background: white;
-    color: black;
-}
+        .preview-card {
+            width: 520px;
+            max-width: 90vw;
+            padding: 0;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+        }
 
-/* ================= 3D PREVIEW ================= */
-.preview-3d {
-    perspective: 1200px;
-}
+        .preview-card img {
+            width: 100%;
+            display: block;
+            transform: translateZ(40px);
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+        }
 
-.preview-card {
-    width: 520px;
-    max-width: 90vw;
-    padding: 0; /* no background, no frame */
-    transform-style: preserve-3d;
-    transition: transform 0.15s ease-out;
-}
+        /* ================= SECTIONS ================= */
+        section {
+            padding: 120px 90px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
 
-.preview-card img {
-    width: 100%;
-    display: block;
-    transform: translateZ(40px);
-    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
-}
+        section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
 
-/* ================= SECTIONS ================= */
-section {
-    padding: 120px 90px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
+        section p {
+            max-width: 740px;
+            opacity: 0.6;
+            line-height: 1.75;
+        }
 
-section h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
+        /* ================= FEATURES ================= */
+        .features {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 42px;
+        }
 
-section p {
-    max-width: 740px;
-    opacity: 0.6;
-    line-height: 1.75;
-}
+        .card {
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 44px;
+            transition: 0.35s ease;
+        }
 
-/* ================= FEATURES ================= */
-.features {
-    margin-top: 60px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 42px;
-}
+        .card:hover {
+            background: white;
+            color: black;
+        }
 
-.card {
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 44px;
-    transition: 0.35s ease;
-}
+        /* ================= FOOTER ================= */
+        footer {
+            padding: 60px 90px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0.5;
+        }
 
-.card:hover {
-    background: white;
-    color: black;
-}
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1000px) {
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
 
-/* ================= FOOTER ================= */
-footer {
-    padding: 60px 90px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    opacity: 0.5;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 1000px) {
-    .hero {
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .preview-card {
-        width: 420px;
-    }
-}
-</style>
+            .preview-card {
+                width: 420px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -229,7 +227,7 @@ footer {
             TrojanHorse delivers private, high-performance modification software
             built for stealth, reliability, and competitive dominance.
         </p>
-        <button>USE SOFTWARE</button>
+        <button id="useSoftwareButton">USE SOFTWARE</button>
     </div>
 
     <div class="preview-3d">
@@ -271,80 +269,89 @@ footer {
 
 <!-- ================= SNOW EFFECT ================= -->
 <script>
-const canvas = document.getElementById("fx");
-const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById("fx");
+    const ctx = canvas.getContext("2d");
 
-function resize() {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = innerWidth * dpr;
-    canvas.height = innerHeight * dpr;
-    canvas.style.width = innerWidth + "px";
-    canvas.style.height = innerHeight + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-resize();
-addEventListener("resize", resize);
+    function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = innerWidth * dpr;
+        canvas.height = innerHeight * dpr;
+        canvas.style.width = innerWidth + "px";
+        canvas.style.height = innerHeight + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    addEventListener("resize", resize);
 
-const snow = [];
-for (let i = 0; i < 90; i++) {
-    snow.push({
-        x: Math.random() * innerWidth,
-        y: Math.random() * innerHeight,
-        r: Math.random() * 2.5 + 1,
-        s: Math.random() * 0.8 + 0.3,
-        d: Math.random() * 0.6 - 0.3,
-        o: Math.random() * 0.5 + 0.3
-    });
-}
+    const snow = [];
+    for (let i = 0; i < 90; i++) {
+        snow.push({
+            x: Math.random() * innerWidth,
+            y: Math.random() * innerHeight,
+            r: Math.random() * 2.5 + 1,
+            s: Math.random() * 0.8 + 0.3,
+            d: Math.random() * 0.6 - 0.3,
+            o: Math.random() * 0.5 + 0.3
+        });
+    }
 
-function animateSnow() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    snow.forEach(f => {
-        ctx.fillStyle = `rgba(255,255,255,${f.o})`;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        ctx.fill();
+    function animateSnow() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        snow.forEach(f => {
+            ctx.fillStyle = `rgba(255,255,255,${f.o})`;
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
 
-        f.y += f.s;
-        f.x += f.d;
+            f.y += f.s;
+            f.x += f.d;
 
-        if (f.y > innerHeight) {
-            f.y = -10;
-            f.x = Math.random() * innerWidth;
-        }
-    });
-    requestAnimationFrame(animateSnow);
-}
-animateSnow();
+            if (f.y > innerHeight) {
+                f.y = -10;
+                f.x = Math.random() * innerWidth;
+            }
+        });
+        requestAnimationFrame(animateSnow);
+    }
+    animateSnow();
 </script>
 
 <!-- ================= 3D CURSOR ROTATION ================= -->
 <script>
-const card = document.getElementById("tiltCard");
+    const card = document.getElementById("tiltCard");
 
-document.addEventListener("mousemove", e => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
+    document.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
 
-    const rotateX = (-y / 25).toFixed(2);
-    const rotateY = (x / 25).toFixed(2);
+        const rotateX = (-y / 25).toFixed(2);
+        const rotateY = (x / 25).toFixed(2);
 
-    card.style.transform = `
-        rotateX(${rotateX}deg)
-        rotateY(${rotateY}deg)
-    `;
-});
+        card.style.transform = `
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+        `;
+    });
 
-document.addEventListener("mouseleave", () => {
-    card.style.transform = "rotateX(0deg) rotateY(0deg)";
-});
+    document.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+    });
+
+    // Use Software Button Logic
+    document.getElementById("useSoftwareButton").addEventListener("click", function() {
+        // Initiate download
+        const downloadLink = document.createElement('a');
+        downloadLink.href = 'https://example.com/path_to_your_software.exe';  // Replace with your actual software download URL
+        downloadLink.download = 'TrojanHorse_Software.exe'; // Name for the downloaded file
+        downloadLink.click();
+
+        // Show message to user
+        setTimeout(() => {
+            alert('Download complete! Please open the software to continue. You can use either the app or website to get started.');
+        }, 1000); // Delay the alert for 1 second after download
+    });
 </script>
 
 </body>
 </html>
-
-
-
-
-

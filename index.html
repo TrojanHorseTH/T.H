@@ -117,58 +117,7 @@
             color: black;
         }
 
-        /* ================= MODAL ================= */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        .modal h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .modal p {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .modal button {
-            background: transparent;
-            color: white;
-            border: 1px solid white;
-            padding: 12px 30px;
-            font-size: 14px;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .modal button:hover {
-            background: white;
-            color: black;
-        }
-
-        /* ================= FOOTER ================= */
-        footer {
-            padding: 60px 90px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            opacity: 0.5;
-        }
-
-        /* ================= 3D CARD ================= */
+        /* ================= 3D PREVIEW ================= */
         .preview-3d {
             perspective: 1200px;
         }
@@ -186,6 +135,52 @@
             display: block;
             transform: translateZ(40px);
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+        }
+
+        /* ================= SECTIONS ================= */
+        section {
+            padding: 120px 90px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            max-width: 740px;
+            opacity: 0.6;
+            line-height: 1.75;
+        }
+
+        /* ================= FEATURES ================= */
+        .features {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 42px;
+        }
+
+        .card {
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 44px;
+            transition: 0.35s ease;
+        }
+
+        .card:hover {
+            background: white;
+            color: black;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            padding: 60px 90px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0.5;
         }
 
         /* ================= RESPONSIVE ================= */
@@ -343,41 +338,30 @@
         card.style.transform = "rotateX(0deg) rotateY(0deg)";
     });
 
-    // Open the modal when "USE SOFTWARE" is clicked
+    // Use Software Button Logic
     document.getElementById("useSoftwareButton").addEventListener("click", function() {
-        document.getElementById("softwareModal").style.display = 'block';
-    });
+        // Link to the software download
+        const downloadLink = 'https://example.com/path_to_your_software.exe';  // Replace with the actual URL
 
-    // Handle App Version Download
-    document.getElementById("useAppVersionButton").addEventListener("click", function() {
-        const downloadLink = document.createElement('a');
-        downloadLink.href = 'https://github.com/TrojanHorseTH/T.H/blob/main/TrojanHorse.png?raw=true';
-        downloadLink.download = 'TrojanHorse_Software.exe';
-        downloadLink.click();
-        document.getElementById("softwareModal").style.display = 'none';
-    });
+        // Create a temporary anchor element
+        const anchor = document.createElement('a');
+        anchor.href = downloadLink;
+        anchor.download = 'TrojanHorse_Software.exe';  // File name after download
+        anchor.style.display = 'none'; // Hide the anchor element
+        
+        // Append anchor to the body and simulate a click to trigger download
+        document.body.appendChild(anchor);
+        anchor.click();
+        
+        // Remove the anchor element after triggering the download
+        document.body.removeChild(anchor);
 
-    // Handle Web Version Redirection
-    document.getElementById("useWebVersionButton").addEventListener("click", function() {
-        window.location.href = 'https://trojanhorseth.github.io/T.H/cheat-menu';
-        document.getElementById("softwareModal").style.display = 'none';
+        // Optional: Show a confirmation alert after a slight delay
+        setTimeout(() => {
+            alert('Download initiated. Please check your downloads folder.');
+        }, 500); // Delay for a smooth user experience
     });
-
-    // Close the modal if the user clicks outside
-    window.onclick = function(event) {
-        if (event.target == document.getElementById("softwareModal")) {
-            document.getElementById("softwareModal").style.display = "none";
-        }
-    };
 </script>
-
-<!-- ================= MODAL POPUP ================= -->
-<div id="softwareModal" class="modal">
-    <h2>Choose Your Version</h2>
-    <p>Download the app version or use the web version.</p>
-    <button id="useAppVersionButton">Use App Version</button>
-    <button id="useWebVersionButton">Use Web Version</button>
-</div>
 
 </body>
 </html>

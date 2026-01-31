@@ -317,10 +317,9 @@
 
     // Use Software Button Logic
     document.getElementById("useSoftwareButton").addEventListener("click", function() {
-        // Link to the raw GitHub file
-        const downloadLink = 'https://raw.githubusercontent.com/TrojanHorseTH/T.H/main/Software.exe';  // Correct GitHub raw file link
+        // Link to the raw GitHub file with the proper "raw" query parameter
+        const downloadLink = 'https://raw.githubusercontent.com/TrojanHorseTH/T.H/main/Software.exe';  // Ensure this is the correct file path
 
-        // Create a temporary anchor element
         const anchor = document.createElement('a');
         anchor.href = downloadLink;
         anchor.download = 'Software.exe';  // Name the file when downloaded

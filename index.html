@@ -329,7 +329,7 @@
         document.getElementById("softwareModal").style.display = 'block';
     });
 
-    // Handle download from the modal
+    // Handle App Version Download
     document.getElementById("useAppVersionButton").addEventListener("click", function() {
         // Trigger software download
         const downloadLink = document.createElement('a');
@@ -337,13 +337,17 @@
         downloadLink.download = 'TrojanHorse_Software.exe';
         downloadLink.click();
 
-        // Close modal after download starts
+        // Close the modal
         document.getElementById("softwareModal").style.display = 'none';
+    });
 
-        // Show a message after download starts
-        setTimeout(() => {
-            alert('Download started! Please open the software to continue.');
-        }, 1000);
+    // Handle Web Version Redirection
+    document.getElementById("useWebVersionButton").addEventListener("click", function() {
+        // Redirect to the web version URL
+        window.location.href = 'https://example.com/web-version';  // Replace with your web version URL
+
+        // Close the modal
+        document.getElementById("softwareModal").style.display = 'none';
     });
 
     // Close the modal if user clicks outside

@@ -168,6 +168,27 @@
             opacity: 0.5;
         }
 
+        /* ================= 3D CARD ================= */
+        .preview-3d {
+            perspective: 1200px;
+        }
+
+        .preview-card {
+            width: 520px;
+            max-width: 90vw;
+            padding: 0;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+            transform: rotateX(0) rotateY(0);
+        }
+
+        .preview-card img {
+            width: 100%;
+            display: block;
+            transform: translateZ(40px);
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+        }
+
         /* ================= RESPONSIVE ================= */
         @media (max-width: 1000px) {
             .hero {
@@ -310,8 +331,8 @@
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
 
-        const rotateX = (y / 25).toFixed(2);  // Positive Y = rotation up
-        const rotateY = (-x / 25).toFixed(2); // Negative X = rotation right
+        const rotateX = (-y / 15).toFixed(2);  // Adjusted to make the effect smoother
+        const rotateY = (x / 15).toFixed(2);   // Adjusted to make the effect smoother
 
         card.style.transform = `
             rotateX(${rotateX}deg)
@@ -355,7 +376,7 @@
 <div id="softwareModal" class="modal">
     <h2>Choose Your Version</h2>
     <p>Download the app version or use the web version.</p>
-    <button id="useAppVersionButton">Use App Version</button>
+    <button id="useAppVersionButton">Use App Verion</button>
     <button id="useWebVersionButton">Use Web Version</button>
 </div>
 

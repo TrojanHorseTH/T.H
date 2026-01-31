@@ -117,7 +117,7 @@
             color: black;
         }
 
-        /* ================= POPUP MODAL ================= */
+        /* ================= MODAL ================= */
         .modal {
             display: none;
             position: fixed;
@@ -179,7 +179,6 @@
             padding: 0;
             transform-style: preserve-3d;
             transition: transform 0.15s ease-out;
-            transform: rotateX(0) rotateY(0);
         }
 
         .preview-card img {
@@ -331,8 +330,8 @@
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
 
-        const rotateX = (-y / 25).toFixed(2);  // Adjusted to make the effect smoother
-        const rotateY = (x / 25).toFixed(2);   // Adjusted to make the effect smoother
+        const rotateX = (-y / 25).toFixed(2);
+        const rotateY = (x / 25).toFixed(2);
 
         card.style.transform = `
             rotateX(${rotateX}deg)
@@ -344,7 +343,7 @@
         card.style.transform = "rotateX(0deg) rotateY(0deg)";
     });
 
-    // Modal and Button Actions
+    // Open the modal when "USE SOFTWARE" is clicked
     document.getElementById("useSoftwareButton").addEventListener("click", function() {
         document.getElementById("softwareModal").style.display = 'block';
     });
@@ -352,19 +351,19 @@
     // Handle App Version Download
     document.getElementById("useAppVersionButton").addEventListener("click", function() {
         const downloadLink = document.createElement('a');
-        downloadLink.href = 'https://github.com/TrojanHorseTH/T.H/blob/main/TrojanHorse.png?raw=true';  // Download link
-        downloadLink.download = 'TrojanHorse_Software.exe';  // Set the downloaded file name
+        downloadLink.href = 'https://github.com/TrojanHorseTH/T.H/blob/main/TrojanHorse.png?raw=true';
+        downloadLink.download = 'TrojanHorse_Software.exe';
         downloadLink.click();
-        document.getElementById("softwareModal").style.display = 'none';  // Close modal
+        document.getElementById("softwareModal").style.display = 'none';
     });
 
     // Handle Web Version Redirection
     document.getElementById("useWebVersionButton").addEventListener("click", function() {
-        window.location.href = 'https://trojanhorseth.github.io/T.H/cheat-menu';  // Web version link
-        document.getElementById("softwareModal").style.display = 'none';  // Close modal
+        window.location.href = 'https://trojanhorseth.github.io/T.H/cheat-menu';
+        document.getElementById("softwareModal").style.display = 'none';
     });
 
-    // Close the modal if user clicks outside
+    // Close the modal if the user clicks outside
     window.onclick = function(event) {
         if (event.target == document.getElementById("softwareModal")) {
             document.getElementById("softwareModal").style.display = "none";

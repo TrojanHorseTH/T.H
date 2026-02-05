@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrojanHorse | Terms of Service</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        /* ================= NAV ================= */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 26px 90px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo img {
+            height: 42px;
+            filter: grayscale(100%) brightness(1.15);
+        }
+
+        .logo span {
+            font-size: 18px;
+            letter-spacing: 3px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav li {
+            font-size: 13px;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+
+        nav li:hover {
+            opacity: 1;
+        }
+
+        /* ================= PAGE HEADER ================= */
+        .page-header {
+            padding: 120px 90px 80px;
+        }
+
+        .page-header h1 {
+            font-size: 52px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .page-header p {
+            max-width: 720px;
+            opacity: 0.6;
+            line-height: 1.7;
+        }
+
+        /* ================= SECTIONS ================= */
+        section {
+            padding: 90px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        section h2 {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        section p,
+        section li {
+            max-width: 760px;
+            opacity: 0.6;
+            line-height: 1.75;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-top: 18px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            padding: 60px 90px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1000px) {
+            nav,
+            section,
+            footer,
+            .page-header {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .page-header h1 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="fx"></canvas>
+
+<!-- NAV -->
+<nav>
+    <div class="logo">
+        <img src="TrojanHorse.png">
+        <span>TROJANHORSE</span>
+    </div>
+    <ul>
+        <li onclick="location.href='index.html'">HOME</li>
+        <li onclick="location.href='privacy.html'">PRIVACY</li>
+        <li>CONTACT</li>
+    </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+    <h1>Terms of Service</h1>
+    <p>
+        By accessing or using TrojanHorse software, website, or Discord bot,
+        you agree to the following terms and conditions.
+    </p>
+</div>
+
+<section>
+    <h2>Acceptance of Terms</h2>
+    <p>
+        By using the Service, you confirm that you have read, understood,
+        and agreed to these Terms of Service. If you do not agree, you must
+        discontinue use immediately.
+    </p>
+</section>
+
+<section>
+    <h2>Use of the Service</h2>
+    <p>
+        You agree to use the Service only for lawful purposes and in accordance
+        with all applicable laws, rules, and regulations.
+    </p>
+</section>
+
+<section>
+    <h2>Prohibited Activities</h2>
+    <p>The following actions are strictly prohibited:</p>
+    <ul>
+        <li>Reverse engineering, redistributing, or reselling the software</li>
+        <li>Attempting to bypass security or access restricted systems</li>
+        <li>Using the Service for malicious or abusive purposes</li>
+        <li>Violating Discord’s Terms of Service</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Intellectual Property</h2>
+    <p>
+        All content, software, and branding associated with TrojanHorse
+        are the exclusive property of the developer and may not be copied
+        or reused without permission.
+    </p>
+</section>
+
+<section>
+    <h2>Disclaimer</h2>
+    <p>
+        The Service is provided “as is” and “as available” without warranties
+        of any kind. Use of the Service is at your own risk.
+    </p>
+</section>
+
+<section>
+    <h2>Limitation of Liability</h2>
+    <p>
+        TrojanHorse shall not be held liable for any damages, losses, or issues
+        arising from the use or inability to use the Service.
+    </p>
+</section>
+
+<section>
+    <h2>Termination</h2>
+    <p>
+        Access to the Service may be terminated at any time without notice
+        for violation of these terms.
+    </p>
+</section>
+
+<section>
+    <h2>Changes to Terms</h2>
+    <p>
+        These Terms of Service may be updated at any time.
+        Continued use of the Service constitutes acceptance of the updated terms.
+    </p>
+</section>
+
+<section>
+    <h2>Contact</h2>
+    <p>
+        For questions regarding these Terms of Service,
+        contact the developer via the official website or Discord.
+    </p>
+</section>
+
+<footer>
+    <div>© 2026 TrojanHorse</div>
+    <div>TERMS</div>
+</footer>
+
+<!-- ================= SNOW EFFECT ================= -->
+<script>
+    const canvas = document.getElementById("fx");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = innerWidth * dpr;
+        canvas.height = innerHeight * dpr;
+        canvas.style.width = innerWidth + "px";
+        canvas.style.height = innerHeight + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    addEventListener("resize", resize);
+
+    const snow = [];
+    for (let i = 0; i < 90; i++) {
+        snow.push({
+            x: Math.random() * innerWidth,
+            y: Math.random() * innerHeight,
+            r: Math.random() * 2.5 + 1,
+            s: Math.random() * 0.8 + 0.3,
+            d: Math.random() * 0.6 - 0.3,
+            o: Math.random() * 0.5 + 0.3
+        });
+    }
+
+    function animateSnow() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        snow.forEach(f => {
+            ctx.fillStyle = `rgba(255,255,255,${f.o})`;
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
+
+            f.y += f.s;
+            f.x += f.d;
+
+            if (f.y > innerHeight) {
+                f.y = -10;
+                f.x = Math.random() * innerWidth;
+            }
+        });
+        requestAnimationFrame(animateSnow);
+    }
+    animateSnow();
+</script>
+
+</body>
+</html>

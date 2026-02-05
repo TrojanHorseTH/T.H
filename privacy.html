@@ -3,120 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | TrojanHorseTH</title>
+    <title>TrojanHorse | Privacy Policy</title>
 
-    <!-- Use the SAME stylesheet as your main page -->
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        /* ================= NAV ================= */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 26px 90px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo img {
+            height: 42px;
+            filter: grayscale(100%) brightness(1.15);
+        }
+
+        .logo span {
+            font-size: 18px;
+            letter-spacing: 3px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav li {
+            font-size: 13px;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+
+        nav li:hover {
+            opacity: 1;
+        }
+
+        /* ================= PAGE HEADER ================= */
+        .page-header {
+            padding: 120px 90px 80px;
+        }
+
+        .page-header h1 {
+            font-size: 52px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .page-header p {
+            max-width: 720px;
+            opacity: 0.6;
+            line-height: 1.7;
+        }
+
+        /* ================= SECTIONS ================= */
+        section {
+            padding: 90px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        section h2 {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        section p,
+        section li {
+            max-width: 760px;
+            opacity: 0.6;
+            line-height: 1.75;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-top: 18px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            padding: 60px 90px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1000px) {
+            nav,
+            section,
+            footer,
+            .page-header {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .page-header h1 {
+                font-size: 40px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <main class="container">
-        <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: February 5, 2026</p>
 
-        <section>
-            <p>
-                This Privacy Policy explains how information is collected, used, and protected
-                when you use this website and the associated Discord bot.
-            </p>
-        </section>
+<canvas id="fx"></canvas>
 
-        <section>
-            <h2>Information We Collect</h2>
+<!-- NAV -->
+<nav>
+    <div class="logo">
+        <img src="TrojanHorse.png">
+        <span>TROJANHORSE</span>
+    </div>
+    <ul>
+        <li onclick="location.href='index.html'">HOME</li>
+        <li>STATUS</li>
+        <li>FAQ</li>
+        <li>CONTACT</li>
+    </ul>
+</nav>
 
-            <h3>Website</h3>
-            <p>
-                This website does not intentionally collect personal information.
-                Basic technical data (such as IP address, browser type, and device information)
-                may be collected automatically by GitHub Pages for security and performance.
-            </p>
+<!-- HEADER -->
+<div class="page-header">
+    <h1>Privacy Policy</h1>
+    <p>
+        This document explains how information is collected, used, and protected
+        when using TrojanHorse software, website, and Discord bot.
+    </p>
+</div>
 
-            <h3>Discord Bot</h3>
-            <p>
-                The Discord bot may collect and store the following data when required for functionality:
-            </p>
-            <ul>
-                <li>Discord User IDs</li>
-                <li>Discord Server (Guild) IDs</li>
-                <li>Channel IDs</li>
-                <li>Message content only when necessary for commands or features</li>
-            </ul>
-        </section>
+<section>
+    <h2>Information We Collect</h2>
+    <p>
+        TrojanHorse does not intentionally collect personal information from visitors
+        of this website.
+    </p>
+</section>
 
-        <section>
-            <h2>How We Use Your Information</h2>
-            <ul>
-                <li>To operate and maintain the Service</li>
-                <li>To respond to commands and user interactions</li>
-                <li>To improve features and performance</li>
-                <li>To prevent abuse and ensure security</li>
-            </ul>
+<section>
+    <h2>Discord Bot Data</h2>
+    <p>
+        The TrojanHorse Discord bot may collect limited data required for operation:
+    </p>
+    <ul>
+        <li>Discord user IDs</li>
+        <li>Server (guild) IDs</li>
+        <li>Channel IDs</li>
+        <li>Message content only when required for commands or moderation</li>
+    </ul>
+</section>
 
-            <p>
-                We do not sell, rent, or trade your data.
-            </p>
-        </section>
+<section>
+    <h2>Use of Data</h2>
+    <p>
+        Collected data is used strictly to operate and improve the Service,
+        ensure functionality, and prevent abuse.
+    </p>
+</section>
 
-        <section>
-            <h2>Data Storage and Security</h2>
-            <p>
-                Reasonable measures are taken to protect stored data.
-                Data is kept only for as long as necessary to provide the Service.
-            </p>
-        </section>
+<section>
+    <h2>Data Sharing</h2>
+    <p>
+        TrojanHorse does not sell, trade, or share user data with third parties.
+        Data may only be disclosed if required by law or to comply with Discord’s
+        Terms of Service.
+    </p>
+</section>
 
-        <section>
-            <h2>Data Sharing</h2>
-            <p>
-                We do not share your data with third parties except when required by law
-                or to comply with Discord’s Terms of Service.
-            </p>
-        </section>
+<section>
+    <h2>Data Retention</h2>
+    <p>
+        Data is stored only for as long as necessary to provide the Service
+        and is deleted when no longer required.
+    </p>
+</section>
 
-        <section>
-            <h2>User Rights</h2>
-            <p>
-                You may request access to or deletion of your data by contacting the developer.
-            </p>
-        </section>
+<section>
+    <h2>Children’s Privacy</h2>
+    <p>
+        The Service is not intended for users under the age of 13.
+        No data is knowingly collected from children.
+    </p>
+</section>
 
-        <section>
-            <h2>Children’s Privacy</h2>
-            <p>
-                This Service is not intended for users under the age of 13.
-                We do not knowingly collect data from children.
-            </p>
-        </section>
+<section>
+    <h2>Policy Updates</h2>
+    <p>
+        This Privacy Policy may be updated at any time.
+        Changes will be reflected on this page.
+    </p>
+</section>
 
-        <section>
-            <h2>Third-Party Services</h2>
-            <p>
-                This Service relies on Discord and GitHub Pages.
-                Their use is subject to their respective privacy policies.
-            </p>
-        </section>
+<section>
+    <h2>Contact</h2>
+    <p>
+        If you have questions about this Privacy Policy,
+        contact the developer via Discord or the official website.
+    </p>
+</section>
 
-        <section>
-            <h2>Changes to This Policy</h2>
-            <p>
-                This Privacy Policy may be updated at any time.
-                Changes will be posted on this page.
-            </p>
-        </section>
+<footer>
+    <div>© 2026 TrojanHorse</div>
+    <div>PRIVATE</div>
+</footer>
 
-        <section>
-            <h2>Contact</h2>
-            <p>
-                If you have questions or concerns about this Privacy Policy,
-                please contact the developer via Discord or this website.
-            </p>
-        </section>
+<!-- ================= SNOW EFFECT ================= -->
+<script>
+    const canvas = document.getElementById("fx");
+    const ctx = canvas.getContext("2d");
 
-        <footer>
-            <p>
-                <a href="index.html">← Back to Home</a>
-            </p>
-        </footer>
-    </main>
+    function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = innerWidth * dpr;
+        canvas.height = innerHeight * dpr;
+        canvas.style.width = innerWidth + "px";
+        canvas.style.height = innerHeight + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    addEventListener("resize", resize);
+
+    const snow = [];
+    for (let i = 0; i < 90; i++) {
+        snow.push({
+            x: Math.random() * innerWidth,
+            y: Math.random() * innerHeight,
+            r: Math.random() * 2.5 + 1,
+            s: Math.random() * 0.8 + 0.3,
+            d: Math.random() * 0.6 - 0.3,
+            o: Math.random() * 0.5 + 0.3
+        });
+    }
+
+    function animateSnow() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        snow.forEach(f => {
+            ctx.fillStyle = `rgba(255,255,255,${f.o})`;
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
+
+            f.y += f.s;
+            f.x += f.d;
+
+            if (f.y > innerHeight) {
+                f.y = -10;
+                f.x = Math.random() * innerWidth;
+            }
+        });
+        requestAnimationFrame(animateSnow);
+    }
+    animateSnow();
+</script>
+
 </body>
 </html>
